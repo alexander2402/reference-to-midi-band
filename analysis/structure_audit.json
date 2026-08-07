@@ -1,0 +1,432 @@
+{
+  "schema_version": 1,
+  "project_id": "gorodok_angelika_varum_1993",
+  "status": "PASS",
+  "summary": {
+    "passed": 70,
+    "failed": 0,
+    "warnings": 0
+  },
+  "checks": [
+    {
+      "name": "Studio rules",
+      "status": "PASS",
+      "required": true,
+      "evidence": "STUDIO.md exists"
+    },
+    {
+      "name": "Canonical project spec",
+      "status": "PASS",
+      "required": true,
+      "evidence": "studio/project.json exists"
+    },
+    {
+      "name": "Reusable knowledge",
+      "status": "PASS",
+      "required": true,
+      "evidence": "studio/knowledge.json exists"
+    },
+    {
+      "name": "New-machine fallback",
+      "status": "PASS",
+      "required": true,
+      "evidence": "Manual fallback exists"
+    },
+    {
+      "name": "Deliverable: native_project",
+      "status": "PASS",
+      "required": true,
+      "evidence": "Gorodok_Matched.band"
+    },
+    {
+      "name": "Deliverable: full_midi",
+      "status": "PASS",
+      "required": true,
+      "evidence": "midi/00_full_arrangement.mid"
+    },
+    {
+      "name": "Deliverable: part_midis",
+      "status": "PASS",
+      "required": true,
+      "evidence": "midi/01_accompaniment_transcribed.mid"
+    },
+    {
+      "name": "Deliverable: part_midis",
+      "status": "PASS",
+      "required": true,
+      "evidence": "midi/02_bass_transcribed.mid"
+    },
+    {
+      "name": "Deliverable: part_midis",
+      "status": "PASS",
+      "required": true,
+      "evidence": "midi/03_electronic_drums.mid"
+    },
+    {
+      "name": "Deliverable: part_midis",
+      "status": "PASS",
+      "required": true,
+      "evidence": "midi/04_vocal_melody_guide.mid"
+    },
+    {
+      "name": "Deliverable: part_midis",
+      "status": "PASS",
+      "required": true,
+      "evidence": "midi/05_high_synth_transcribed.mid"
+    },
+    {
+      "name": "Deliverable: midi_render",
+      "status": "PASS",
+      "required": true,
+      "evidence": "renders/00_full_arrangement.wav"
+    },
+    {
+      "name": "Deliverable: native_render",
+      "status": "PASS",
+      "required": true,
+      "evidence": "renders/Gorodok_Matched_GarageBand_verified.wav"
+    },
+    {
+      "name": "Deliverable: midi_comparison",
+      "status": "PASS",
+      "required": true,
+      "evidence": "analysis/midi_comparison.json"
+    },
+    {
+      "name": "Deliverable: native_comparison",
+      "status": "PASS",
+      "required": true,
+      "evidence": "analysis/garageband_comparison.json"
+    },
+    {
+      "name": "Deliverable: midi_validation",
+      "status": "PASS",
+      "required": true,
+      "evidence": "analysis/midi_validation.json"
+    },
+    {
+      "name": "Deliverable: native_verification",
+      "status": "PASS",
+      "required": true,
+      "evidence": "analysis/native_verification.json"
+    },
+    {
+      "name": "Deliverable: accepted_state",
+      "status": "PASS",
+      "required": true,
+      "evidence": "analysis/accepted_state.json"
+    },
+    {
+      "name": "Deliverable: iteration_ledger",
+      "status": "PASS",
+      "required": true,
+      "evidence": "analysis/iteration_ledger.jsonl"
+    },
+    {
+      "name": "Deliverable: structure_audit",
+      "status": "PASS",
+      "required": true,
+      "evidence": "analysis/STRUCTURE_AUDIT.md"
+    },
+    {
+      "name": "Deliverable: comparison_report",
+      "status": "PASS",
+      "required": true,
+      "evidence": "analysis/COMPARISON.md"
+    },
+    {
+      "name": "Documentation",
+      "status": "PASS",
+      "required": true,
+      "evidence": "STUDIO.md"
+    },
+    {
+      "name": "Documentation",
+      "status": "PASS",
+      "required": true,
+      "evidence": "README.md"
+    },
+    {
+      "name": "Documentation",
+      "status": "PASS",
+      "required": true,
+      "evidence": "PROJECT.md"
+    },
+    {
+      "name": "Documentation",
+      "status": "PASS",
+      "required": true,
+      "evidence": "analysis/COMPARISON.md"
+    },
+    {
+      "name": "Documentation",
+      "status": "PASS",
+      "required": true,
+      "evidence": "studio/MANUAL_FALLBACK.md"
+    },
+    {
+      "name": "Section coverage",
+      "status": "PASS",
+      "required": true,
+      "evidence": "Sections cover bars 1–80 exactly once"
+    },
+    {
+      "name": "MIDI technical validation",
+      "status": "PASS",
+      "required": true,
+      "evidence": "analysis/midi_validation.json"
+    },
+    {
+      "name": "MIDI tempo matches spec",
+      "status": "PASS",
+      "required": true,
+      "evidence": "77.733 BPM"
+    },
+    {
+      "name": "MIDI length matches spec",
+      "status": "PASS",
+      "required": true,
+      "evidence": "80 bars"
+    },
+    {
+      "name": "direct_midi KPI: rms_envelope_correlation",
+      "status": "PASS",
+      "required": true,
+      "evidence": "actual=0.50935, minimum=0.48000"
+    },
+    {
+      "name": "direct_midi KPI: onset_envelope_correlation",
+      "status": "PASS",
+      "required": true,
+      "evidence": "actual=0.70695, minimum=0.70000"
+    },
+    {
+      "name": "direct_midi KPI: chroma_cosine_similarity",
+      "status": "PASS",
+      "required": true,
+      "evidence": "actual=0.94744, minimum=0.94000"
+    },
+    {
+      "name": "direct_midi KPI: mfcc_timbre_similarity",
+      "status": "PASS",
+      "required": true,
+      "evidence": "actual=0.86843, minimum=0.86000"
+    },
+    {
+      "name": "direct_midi KPI: onset_f1",
+      "status": "PASS",
+      "required": true,
+      "evidence": "actual=0.76108, minimum=0.75000"
+    },
+    {
+      "name": "native KPI: rms_envelope_correlation",
+      "status": "PASS",
+      "required": true,
+      "evidence": "actual=0.42903, minimum=0.40000"
+    },
+    {
+      "name": "native KPI: onset_envelope_correlation",
+      "status": "PASS",
+      "required": true,
+      "evidence": "actual=0.64350, minimum=0.62000"
+    },
+    {
+      "name": "native KPI: chroma_cosine_similarity",
+      "status": "PASS",
+      "required": true,
+      "evidence": "actual=0.93434, minimum=0.92000"
+    },
+    {
+      "name": "native KPI: mfcc_timbre_similarity",
+      "status": "PASS",
+      "required": true,
+      "evidence": "actual=0.84141, minimum=0.83000"
+    },
+    {
+      "name": "native KPI: onset_f1",
+      "status": "PASS",
+      "required": true,
+      "evidence": "actual=0.75225, minimum=0.74000"
+    },
+    {
+      "name": "Accepted-state project identity",
+      "status": "PASS",
+      "required": true,
+      "evidence": "analysis/accepted_state.json"
+    },
+    {
+      "name": "Accepted artifact hash: direct_midi",
+      "status": "PASS",
+      "required": true,
+      "evidence": "renders/00_full_arrangement.wav"
+    },
+    {
+      "name": "Accepted artifact hash: native",
+      "status": "PASS",
+      "required": true,
+      "evidence": "renders/Gorodok_Matched_GarageBand_verified.wav"
+    },
+    {
+      "name": "Post-reopen native verification",
+      "status": "PASS",
+      "required": true,
+      "evidence": "analysis/native_verification.json"
+    },
+    {
+      "name": "Persisted fader evidence: track 2",
+      "status": "PASS",
+      "required": true,
+      "evidence": "actual=173, expected=173"
+    },
+    {
+      "name": "Persisted fader evidence: track 3",
+      "status": "PASS",
+      "required": true,
+      "evidence": "actual=153, expected=153"
+    },
+    {
+      "name": "Persisted fader evidence: track 4",
+      "status": "PASS",
+      "required": true,
+      "evidence": "actual=173, expected=173"
+    },
+    {
+      "name": "Persisted fader evidence: track 5",
+      "status": "PASS",
+      "required": true,
+      "evidence": "actual=173, expected=173"
+    },
+    {
+      "name": "Persisted fader evidence: track 6",
+      "status": "PASS",
+      "required": true,
+      "evidence": "actual=163, expected=163"
+    },
+    {
+      "name": "Iteration decision ledger",
+      "status": "PASS",
+      "required": true,
+      "evidence": "entries=1"
+    },
+    {
+      "name": "Native tempo",
+      "status": "PASS",
+      "required": true,
+      "evidence": "77.73300170898438"
+    },
+    {
+      "name": "Native key",
+      "status": "PASS",
+      "required": true,
+      "evidence": "A minor"
+    },
+    {
+      "name": "Native meter",
+      "status": "PASS",
+      "required": true,
+      "evidence": "4/4"
+    },
+    {
+      "name": "Native track count",
+      "status": "PASS",
+      "required": true,
+      "evidence": "6"
+    },
+    {
+      "name": "Native sample rate",
+      "status": "PASS",
+      "required": true,
+      "evidence": "44100"
+    },
+    {
+      "name": "Persisted native patch: track 1",
+      "status": "PASS",
+      "required": true,
+      "evidence": "Steinway Grand Piano"
+    },
+    {
+      "name": "Persisted native name: track 1",
+      "status": "PASS",
+      "required": true,
+      "evidence": "Conductor"
+    },
+    {
+      "name": "Persisted native patch: track 2",
+      "status": "PASS",
+      "required": true,
+      "evidence": "Classic Electric Piano"
+    },
+    {
+      "name": "Persisted native name: track 2",
+      "status": "PASS",
+      "required": true,
+      "evidence": "Poly Synth Accompaniment (Transcribed)"
+    },
+    {
+      "name": "Persisted native patch: track 3",
+      "status": "PASS",
+      "required": true,
+      "evidence": "Fingerstyle Bass"
+    },
+    {
+      "name": "Persisted native name: track 3",
+      "status": "PASS",
+      "required": true,
+      "evidence": "Fingered Bass (Transcribed)"
+    },
+    {
+      "name": "Persisted native patch: track 4",
+      "status": "PASS",
+      "required": true,
+      "evidence": "SoCal"
+    },
+    {
+      "name": "Persisted native name: track 4",
+      "status": "PASS",
+      "required": true,
+      "evidence": "Electronic Drums"
+    },
+    {
+      "name": "Persisted native patch: track 5",
+      "status": "PASS",
+      "required": true,
+      "evidence": "Female Chamber Choir"
+    },
+    {
+      "name": "Persisted native name: track 5",
+      "status": "PASS",
+      "required": true,
+      "evidence": "Vocal Melody Guide"
+    },
+    {
+      "name": "Persisted native patch: track 6",
+      "status": "PASS",
+      "required": true,
+      "evidence": "Glass Bells"
+    },
+    {
+      "name": "Persisted native name: track 6",
+      "status": "PASS",
+      "required": true,
+      "evidence": "Crystal Synth Line (Transcribed)"
+    },
+    {
+      "name": "Workspace organization",
+      "status": "PASS",
+      "required": false,
+      "evidence": "missing=[]"
+    },
+    {
+      "name": "Canonical artifact naming",
+      "status": "PASS",
+      "required": false,
+      "evidence": "No trial versions in active analysis/renders"
+    },
+    {
+      "name": "Root directory cleanliness",
+      "status": "PASS",
+      "required": false,
+      "evidence": "root audio=[]"
+    }
+  ]
+}

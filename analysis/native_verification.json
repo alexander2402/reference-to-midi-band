@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "verified_at": "2026-08-07T11:29:16+00:00",
+  "project": "Gorodok_Matched.band",
+  "project_fingerprint": "ffa6002892404377cbf0632531017e5774d3d47d4a0ac3895354d05cd83a25c5",
+  "verification": {
+    "status": "PASS",
+    "project": "Gorodok_Matched.band",
+    "window": "Gorodok_Matched - Tracks",
+    "tracks": [
+      {
+        "index": 1,
+        "name": "Conductor",
+        "patch": "Steinway Grand Piano",
+        "fader": 173,
+        "status": "PASS"
+      },
+      {
+        "index": 2,
+        "name": "Poly Synth Accompaniment (Transcribed)",
+        "patch": "Classic Electric Piano",
+        "fader": 173,
+        "status": "PASS"
+      },
+      {
+        "index": 3,
+        "name": "Fingered Bass (Transcribed)",
+        "patch": "Fingerstyle Bass",
+        "fader": 153,
+        "status": "PASS"
+      },
+      {
+        "index": 4,
+        "name": "Electronic Drums",
+        "patch": "SoCal",
+        "fader": 173,
+        "status": "PASS"
+      },
+      {
+        "index": 5,
+        "name": "Vocal Melody Guide",
+        "patch": "Female Chamber Choir",
+        "fader": 173,
+        "status": "PASS"
+      },
+      {
+        "index": 6,
+        "name": "Crystal Synth Line (Transcribed)",
+        "patch": "Glass Bells",
+        "fader": 163,
+        "status": "PASS"
+      }
+    ],
+    "metadata": {
+      "tempo_bpm": true,
+      "key": true,
+      "meter": true,
+      "track_count": true,
+      "sample_rate": true
+    },
+    "errors": []
+  }
+}

@@ -1,0 +1,205 @@
+{
+  "expected_bpm": 77.733,
+  "expected_meter": "4/4",
+  "expected_key": "A minor",
+  "expected_bars": 80,
+  "files": [
+    {
+      "file": "midi/00_full_arrangement.mid",
+      "bytes": 30334,
+      "format": 1,
+      "ticks_per_beat": 480,
+      "tempo_bpm": 77.732995,
+      "time_signature": "4/4",
+      "key": "A minor",
+      "duration_beats": 320.0,
+      "duration_seconds": 246.99936,
+      "tracks": [
+        {
+          "name": "Conductor",
+          "note_count": 0,
+          "pitch_min": null,
+          "pitch_max": null,
+          "end_tick": 153600
+        },
+        {
+          "name": "Poly Synth Accompaniment (Transcribed)",
+          "note_count": 1861,
+          "pitch_min": 48,
+          "pitch_max": 71,
+          "end_tick": 153600
+        },
+        {
+          "name": "Fingered Bass (Transcribed)",
+          "note_count": 209,
+          "pitch_min": 28,
+          "pitch_max": 48,
+          "end_tick": 153600
+        },
+        {
+          "name": "Electronic Drums",
+          "note_count": 922,
+          "pitch_min": 36,
+          "pitch_max": 50,
+          "end_tick": 153600
+        },
+        {
+          "name": "Vocal Melody Guide",
+          "note_count": 257,
+          "pitch_min": 58,
+          "pitch_max": 72,
+          "end_tick": 153600
+        },
+        {
+          "name": "Crystal Synth Line (Transcribed)",
+          "note_count": 368,
+          "pitch_min": 72,
+          "pitch_max": 84,
+          "end_tick": 153600
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "file": "midi/01_accompaniment_transcribed.mid",
+      "bytes": 15607,
+      "format": 1,
+      "ticks_per_beat": 480,
+      "tempo_bpm": 77.732995,
+      "time_signature": "4/4",
+      "key": "A minor",
+      "duration_beats": 320.0,
+      "duration_seconds": 246.99936,
+      "tracks": [
+        {
+          "name": "Conductor",
+          "note_count": 0,
+          "pitch_min": null,
+          "pitch_max": null,
+          "end_tick": 153600
+        },
+        {
+          "name": "Poly Synth Accompaniment (Transcribed)",
+          "note_count": 1861,
+          "pitch_min": 48,
+          "pitch_max": 71,
+          "end_tick": 153600
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "file": "midi/02_bass_transcribed.mid",
+      "bytes": 3962,
+      "format": 1,
+      "ticks_per_beat": 480,
+      "tempo_bpm": 77.732995,
+      "time_signature": "4/4",
+      "key": "A minor",
+      "duration_beats": 320.0,
+      "duration_seconds": 246.968807,
+      "tracks": [
+        {
+          "name": "Conductor",
+          "note_count": 0,
+          "pitch_min": null,
+          "pitch_max": null,
+          "end_tick": 153600
+        },
+        {
+          "name": "Fingered Bass (Transcribed)",
+          "note_count": 209,
+          "pitch_min": 28,
+          "pitch_max": 48,
+          "end_tick": 153600
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "file": "midi/03_electronic_drums.mid",
+      "bytes": 9308,
+      "format": 1,
+      "ticks_per_beat": 480,
+      "tempo_bpm": 77.732995,
+      "time_signature": "4/4",
+      "key": "A minor",
+      "duration_beats": 320.0,
+      "duration_seconds": 244.005136,
+      "tracks": [
+        {
+          "name": "Conductor",
+          "note_count": 0,
+          "pitch_min": null,
+          "pitch_max": null,
+          "end_tick": 153600
+        },
+        {
+          "name": "Electronic Drums",
+          "note_count": 922,
+          "pitch_min": 36,
+          "pitch_max": 50,
+          "end_tick": 153600
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "file": "midi/04_vocal_melody_guide.mid",
+      "bytes": 4315,
+      "format": 1,
+      "ticks_per_beat": 480,
+      "tempo_bpm": 77.732995,
+      "time_signature": "4/4",
+      "key": "A minor",
+      "duration_beats": 320.0,
+      "duration_seconds": 227.479013,
+      "tracks": [
+        {
+          "name": "Conductor",
+          "note_count": 0,
+          "pitch_min": null,
+          "pitch_max": null,
+          "end_tick": 153600
+        },
+        {
+          "name": "Vocal Melody Guide",
+          "note_count": 257,
+          "pitch_min": 58,
+          "pitch_max": 72,
+          "end_tick": 153600
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "file": "midi/05_high_synth_transcribed.mid",
+      "bytes": 5182,
+      "format": 1,
+      "ticks_per_beat": 480,
+      "tempo_bpm": 77.732995,
+      "time_signature": "4/4",
+      "key": "A minor",
+      "duration_beats": 320.0,
+      "duration_seconds": 243.156076,
+      "tracks": [
+        {
+          "name": "Conductor",
+          "note_count": 0,
+          "pitch_min": null,
+          "pitch_max": null,
+          "end_tick": 153600
+        },
+        {
+          "name": "Crystal Synth Line (Transcribed)",
+          "note_count": 368,
+          "pitch_min": 72,
+          "pitch_max": 84,
+          "end_tick": 153600
+        }
+      ],
+      "status": "PASS"
+    }
+  ],
+  "status": "PASS"
+}

@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "rules": [
+    {
+      "id": "preserve-user-confirmed-baseline",
+      "scope": "arrangement",
+      "trigger": "The user identifies a part as the closest element.",
+      "action": "Freeze that part for the next diagnostic pass and change the largest rejected element first.",
+      "evidence": "The retained drum baseline avoided unnecessary rhythmic regressions on Городок.",
+      "confidence": 0.98
+    },
+    {
+      "id": "optimize-grid-before-orchestration",
+      "scope": "timing",
+      "trigger": "A full-song render drifts despite locally plausible programming.",
+      "action": "Fit tempo and downbeat across the complete recording before editing patches or microtiming.",
+      "evidence": "Moving to 77.733 BPM and a 0.648 s downbeat removed four-minute timing drift.",
+      "confidence": 0.99
+    },
+    {
+      "id": "compare-portable-and-native-separately",
+      "scope": "rendering",
+      "trigger": "Both MIDI and a native DAW project are deliverables.",
+      "action": "Render and score both targets; never infer native sound quality from the deterministic MIDI renderer.",
+      "evidence": "The selected MIDI render scored 0.947 chroma while early GarageBand patch states ranged from 0.573 to 0.845.",
+      "confidence": 1.0
+    },
+    {
+      "id": "inspect-imported-daw-faders",
+      "scope": "garageband",
+      "trigger": "A Standard MIDI File is imported into GarageBand.",
+      "action": "Inspect every imported fader before the first native export; do not assume neutral gain.",
+      "evidence": "Imported musical tracks appeared at fader value 233 and a sub-bass patch masked the harmony.",
+      "confidence": 0.99
+    },
+    {
+      "id": "patch-name-is-not-audio-proof",
+      "scope": "sound_design",
+      "trigger": "A patch name appears functionally appropriate.",
+      "action": "Render it in the full mix and inspect chroma, onset envelope, centroid, and section metrics before promotion.",
+      "evidence": "Deep Sub Bass improved the loudness envelope but dropped native chroma from 0.845 to 0.578.",
+      "confidence": 1.0
+    },
+    {
+      "id": "save-reopen-export",
+      "scope": "garageband",
+      "trigger": "Native patches or faders have changed.",
+      "action": "Save, close, reopen, verify patches and faders, then export from the reopened state.",
+      "evidence": "Three fader edits sounded correct but reverted on reopen until real slider drags were used.",
+      "confidence": 1.0
+    },
+    {
+      "id": "diagnose-before-candidate",
+      "scope": "iteration",
+      "trigger": "A comparison result is below target.",
+      "action": "Write one primary hypothesis, change one primary variable group, and promote only if weighted KPI improves without a protected regression.",
+      "evidence": "Unfocused patch passes created extra versions; the bass/fader hypothesis produced the decisive 0.573 to 0.933 chroma recovery.",
+      "confidence": 0.97
+    }
+  ]
+}

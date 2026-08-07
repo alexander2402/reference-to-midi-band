@@ -1,0 +1,87 @@
+{
+  "reference_alignment_seconds_removed": 0.648,
+  "renderer": "GarageBand 10.4.3 native project export, PCM WAV 44.1 kHz / 16-bit / stereo",
+  "project": "Gorodok_Matched.band",
+  "render": "renders/Gorodok_Matched_GarageBand_verified.wav",
+  "metrics": {
+    "rms_envelope_correlation": 0.42903,
+    "onset_envelope_correlation": 0.6435,
+    "chroma_cosine_similarity": 0.93434,
+    "mfcc_timbre_similarity": 0.84141,
+    "median_spectral_centroid_reference_hz": 1590.65,
+    "median_spectral_centroid_render_hz": 859.28,
+    "si_sdr_db": -25.7169,
+    "onset_match": {
+      "reference_onsets": 902,
+      "rendered_onsets": 765,
+      "precision": 0.81961,
+      "recall": 0.69512,
+      "f1": 0.75225
+    },
+    "sections": [
+      {
+        "section": "Intro",
+        "chroma": 0.89966,
+        "onset": 0.78754,
+        "rms": 0.67354,
+        "timbre": 0.72251
+      },
+      {
+        "section": "Chorus 1",
+        "chroma": 0.92322,
+        "onset": 0.66657,
+        "rms": 0.29161,
+        "timbre": 0.84485
+      },
+      {
+        "section": "Interlude 1",
+        "chroma": 0.95403,
+        "onset": 0.73192,
+        "rms": 0.08478,
+        "timbre": 0.90985
+      },
+      {
+        "section": "Verse 1",
+        "chroma": 0.94709,
+        "onset": 0.65193,
+        "rms": 0.35066,
+        "timbre": 0.86586
+      },
+      {
+        "section": "Chorus 2",
+        "chroma": 0.92894,
+        "onset": 0.5406,
+        "rms": 0.15144,
+        "timbre": 0.84624
+      },
+      {
+        "section": "Instrumental",
+        "chroma": 0.95469,
+        "onset": 0.72562,
+        "rms": -0.00087,
+        "timbre": 0.86315
+      },
+      {
+        "section": "Verse 2",
+        "chroma": 0.94914,
+        "onset": 0.65928,
+        "rms": 0.21994,
+        "timbre": 0.85524
+      },
+      {
+        "section": "Chorus 3",
+        "chroma": 0.9378,
+        "onset": 0.51657,
+        "rms": 0.11655,
+        "timbre": 0.8588
+      },
+      {
+        "section": "Outro",
+        "chroma": 0.95485,
+        "onset": 0.52997,
+        "rms": -0.0698,
+        "timbre": 0.88396
+      }
+    ]
+  }
+}

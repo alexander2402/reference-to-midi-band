@@ -1,0 +1,166 @@
+{
+  "reference_alignment_seconds_removed": 0.648,
+  "renderer": "Apple DLS General MIDI via AVAudioUnitSampler",
+  "metrics": {
+    "full_mix": {
+      "rms_envelope_correlation": 0.50935,
+      "onset_envelope_correlation": 0.70695,
+      "chroma_cosine_similarity": 0.94744,
+      "mfcc_timbre_similarity": 0.86843,
+      "median_spectral_centroid_reference_hz": 1590.8,
+      "median_spectral_centroid_render_hz": 885.62,
+      "si_sdr_db": -37.3473,
+      "onset_match": {
+        "reference_onsets": 902,
+        "rendered_onsets": 722,
+        "precision": 0.85596,
+        "recall": 0.68514,
+        "f1": 0.76108
+      },
+      "sections": [
+        {
+          "section": "Intro",
+          "chroma": 0.93472,
+          "onset": 0.86476,
+          "rms": 0.79095,
+          "timbre": 0.83337
+        },
+        {
+          "section": "Chorus 1",
+          "chroma": 0.94859,
+          "onset": 0.71264,
+          "rms": 0.27738,
+          "timbre": 0.84748
+        },
+        {
+          "section": "Interlude 1",
+          "chroma": 0.96902,
+          "onset": 0.79811,
+          "rms": 0.05231,
+          "timbre": 0.9011
+        },
+        {
+          "section": "Verse 1",
+          "chroma": 0.95682,
+          "onset": 0.73802,
+          "rms": 0.333,
+          "timbre": 0.87417
+        },
+        {
+          "section": "Chorus 2",
+          "chroma": 0.94539,
+          "onset": 0.63773,
+          "rms": 0.05982,
+          "timbre": 0.8495
+        },
+        {
+          "section": "Instrumental",
+          "chroma": 0.95409,
+          "onset": 0.76157,
+          "rms": 0.19184,
+          "timbre": 0.90649
+        },
+        {
+          "section": "Verse 2",
+          "chroma": 0.95378,
+          "onset": 0.73509,
+          "rms": 0.19951,
+          "timbre": 0.86974
+        },
+        {
+          "section": "Chorus 3",
+          "chroma": 0.95566,
+          "onset": 0.56794,
+          "rms": 0.19092,
+          "timbre": 0.86839
+        },
+        {
+          "section": "Outro",
+          "chroma": 0.95987,
+          "onset": 0.61911,
+          "rms": -0.03241,
+          "timbre": 0.93999
+        }
+      ]
+    },
+    "bass": {
+      "rms_envelope_correlation": 0.56222,
+      "onset_envelope_correlation": 0.60306,
+      "chroma_cosine_similarity": 0.9678,
+      "mfcc_timbre_similarity": 0.90992,
+      "median_spectral_centroid_reference_hz": 155.93,
+      "median_spectral_centroid_render_hz": 239.01,
+      "si_sdr_db": -34.1507,
+      "onset_match": {
+        "reference_onsets": 173,
+        "rendered_onsets": 210,
+        "precision": 0.69048,
+        "recall": 0.83815,
+        "f1": 0.75718
+      }
+    },
+    "drums": {
+      "rms_envelope_correlation": 0.59596,
+      "onset_envelope_correlation": 0.76902,
+      "chroma_cosine_similarity": 0.84961,
+      "mfcc_timbre_similarity": 0.33552,
+      "median_spectral_centroid_reference_hz": 3990.24,
+      "median_spectral_centroid_render_hz": 2765.86,
+      "si_sdr_db": -31.9399,
+      "onset_match": {
+        "reference_onsets": 680,
+        "rendered_onsets": 573,
+        "precision": 0.80454,
+        "recall": 0.67794,
+        "f1": 0.73583
+      }
+    },
+    "vocals_vs_guide": {
+      "rms_envelope_correlation": 0.61866,
+      "onset_envelope_correlation": 0.20191,
+      "chroma_cosine_similarity": 0.7203,
+      "mfcc_timbre_similarity": 0.50839,
+      "median_spectral_centroid_reference_hz": 2923.63,
+      "median_spectral_centroid_render_hz": 1132.86,
+      "si_sdr_db": -52.797,
+      "onset_match": {
+        "reference_onsets": 431,
+        "rendered_onsets": 256,
+        "precision": 0.69141,
+        "recall": 0.41067,
+        "f1": 0.51528
+      }
+    },
+    "accompaniment_other": {
+      "rms_envelope_correlation": 0.15971,
+      "onset_envelope_correlation": 0.74585,
+      "chroma_cosine_similarity": 0.89767,
+      "mfcc_timbre_similarity": 0.85052,
+      "median_spectral_centroid_reference_hz": 1021.81,
+      "median_spectral_centroid_render_hz": 1065.23,
+      "si_sdr_db": -37.1453,
+      "onset_match": {
+        "reference_onsets": 705,
+        "rendered_onsets": 951,
+        "precision": 0.70347,
+        "recall": 0.94894,
+        "f1": 0.80797
+      }
+    }
+  },
+  "level_balance": {
+    "reference_stems_db_relative_to_mix": {
+      "bass": -3.114,
+      "drums": -15.376,
+      "vocals": -7.591,
+      "other": -8.153
+    },
+    "rendered_parts_db_relative_to_mix": {
+      "bass": -6.296,
+      "drums": -18.551,
+      "vocal_guide": -10.704,
+      "keys": -12.871,
+      "lead": -15.913
+    }
+  }
+}

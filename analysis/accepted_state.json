@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "project_id": "gorodok_angelika_varum_1993",
+  "updated_at": "2026-08-07T11:13:03+00:00",
+  "targets": {
+    "direct_midi": {
+      "report": "analysis/midi_comparison.json",
+      "artifact": "renders/00_full_arrangement.wav",
+      "artifact_sha256": "0b9f8b3e34198f402cf189cc43f1574d311af05e7b0a960d26cc17728cacd1ac",
+      "metrics": {
+        "rms_envelope_correlation": 0.50935,
+        "onset_envelope_correlation": 0.70695,
+        "chroma_cosine_similarity": 0.94744,
+        "mfcc_timbre_similarity": 0.86843,
+        "onset_f1": 0.76108
+      },
+      "weighted_score": 0.781798,
+      "accepted_at": "2026-08-07T11:13:03+00:00",
+      "hypothesis": "Seeded from the verified retrospective delivery state",
+      "primary_change": "canonicalize-current-state"
+    },
+    "native": {
+      "report": "analysis/garageband_comparison.json",
+      "artifact": "renders/Gorodok_Matched_GarageBand_verified.wav",
+      "artifact_sha256": "d79e8055e6a05f703dd720195411c0a48ef18cd1b7b9877406d7fe437b2a7647",
+      "metrics": {
+        "rms_envelope_correlation": 0.42903,
+        "onset_envelope_correlation": 0.6435,
+        "chroma_cosine_similarity": 0.93434,
+        "mfcc_timbre_similarity": 0.84141,
+        "onset_f1": 0.75225
+      },
+      "weighted_score": 0.744581,
+      "accepted_at": "2026-08-07T11:13:03+00:00",
+      "hypothesis": "Seeded from the verified retrospective delivery state",
+      "primary_change": "canonicalize-current-state"
+    }
+  }
+}

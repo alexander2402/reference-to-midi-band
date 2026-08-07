@@ -1,0 +1,156 @@
+{
+  "schema_version": 1,
+  "project_id": "gorodok_angelika_varum_1993",
+  "title": "Городок",
+  "artist": "Анжелика Варум",
+  "reference": {
+    "path": "analysis/reference.wav",
+    "url": "https://www.youtube.com/watch?v=CMU7_d6xSqQ",
+    "grid_offset_seconds": 0.648,
+    "duration_seconds": 254.305
+  },
+  "music": {
+    "tempo_bpm": 77.733,
+    "key": "A minor",
+    "meter": "4/4",
+    "bars": 80,
+    "beats": 320,
+    "ticks_per_beat": 480
+  },
+  "sections": [
+    {"name": "Intro", "start_bar": 1, "end_bar": 8},
+    {"name": "Chorus 1", "start_bar": 9, "end_bar": 20},
+    {"name": "Interlude 1", "start_bar": 21, "end_bar": 23},
+    {"name": "Verse 1", "start_bar": 24, "end_bar": 36},
+    {"name": "Chorus 2", "start_bar": 37, "end_bar": 48},
+    {"name": "Instrumental", "start_bar": 49, "end_bar": 55},
+    {"name": "Verse 2 (short)", "start_bar": 56, "end_bar": 62},
+    {"name": "Chorus 3 (extended)", "start_bar": 63, "end_bar": 75},
+    {"name": "Outro", "start_bar": 76, "end_bar": 80}
+  ],
+  "deliverables": {
+    "native_project": "Gorodok_Matched.band",
+    "full_midi": "midi/00_full_arrangement.mid",
+    "part_midis": [
+      "midi/01_accompaniment_transcribed.mid",
+      "midi/02_bass_transcribed.mid",
+      "midi/03_electronic_drums.mid",
+      "midi/04_vocal_melody_guide.mid",
+      "midi/05_high_synth_transcribed.mid"
+    ],
+    "midi_render": "renders/00_full_arrangement.wav",
+    "native_render": "renders/Gorodok_Matched_GarageBand_verified.wav",
+    "midi_comparison": "analysis/midi_comparison.json",
+    "native_comparison": "analysis/garageband_comparison.json",
+    "midi_validation": "analysis/midi_validation.json",
+    "native_verification": "analysis/native_verification.json",
+    "accepted_state": "analysis/accepted_state.json",
+    "iteration_ledger": "analysis/iteration_ledger.jsonl",
+    "structure_audit": "analysis/STRUCTURE_AUDIT.md",
+    "comparison_report": "analysis/COMPARISON.md"
+  },
+  "midi_render": {
+    "programs": [90, 33, 0, 52, 98],
+    "renderer": "scripts/render_midi"
+  },
+  "garageband": {
+    "application": "GarageBand",
+    "tested_version": "10.4.3",
+    "tested_build": "5433",
+    "export_basename": "Gorodok_Matched_GarageBand_verified",
+    "tracks": [
+      {
+        "index": 1,
+        "name": "Conductor",
+        "patch": "Steinway Grand Piano",
+        "search": "Steinway Grand Piano",
+        "fader": null,
+        "preserve": true
+      },
+      {
+        "index": 2,
+        "name": "Poly Synth Accompaniment (Transcribed)",
+        "patch": "Classic Electric Piano",
+        "search": "Electric Piano",
+        "fader": 173
+      },
+      {
+        "index": 3,
+        "name": "Fingered Bass (Transcribed)",
+        "patch": "Fingerstyle Bass",
+        "search": "Fingerstyle Bass",
+        "fader": 153
+      },
+      {
+        "index": 4,
+        "name": "Electronic Drums",
+        "patch": "SoCal",
+        "search": "SoCal",
+        "fader": 173,
+        "preserve": true
+      },
+      {
+        "index": 5,
+        "name": "Vocal Melody Guide",
+        "patch": "Female Chamber Choir",
+        "search": "Choir",
+        "fader": 173
+      },
+      {
+        "index": 6,
+        "name": "Crystal Synth Line (Transcribed)",
+        "patch": "Glass Bells",
+        "search": "Glass Bells",
+        "fader": 163
+      }
+    ]
+  },
+  "quality": {
+    "direct_midi": {
+      "minimums": {
+        "rms_envelope_correlation": 0.48,
+        "onset_envelope_correlation": 0.70,
+        "chroma_cosine_similarity": 0.94,
+        "mfcc_timbre_similarity": 0.86,
+        "onset_f1": 0.75
+      },
+      "weights": {
+        "rms_envelope_correlation": 0.15,
+        "onset_envelope_correlation": 0.25,
+        "chroma_cosine_similarity": 0.30,
+        "mfcc_timbre_similarity": 0.15,
+        "onset_f1": 0.15
+      }
+    },
+    "native": {
+      "minimums": {
+        "rms_envelope_correlation": 0.40,
+        "onset_envelope_correlation": 0.62,
+        "chroma_cosine_similarity": 0.92,
+        "mfcc_timbre_similarity": 0.83,
+        "onset_f1": 0.74
+      },
+      "weights": {
+        "rms_envelope_correlation": 0.15,
+        "onset_envelope_correlation": 0.25,
+        "chroma_cosine_similarity": 0.30,
+        "mfcc_timbre_similarity": 0.15,
+        "onset_f1": 0.15
+      }
+    },
+    "promotion": {
+      "minimum_weighted_gain": 0.003,
+      "maximum_single_metric_regression": 0.01,
+      "require_hypothesis": true,
+      "require_single_primary_change": true,
+      "retained_rejected_artifacts": 0
+    }
+  },
+  "documentation": [
+    "STUDIO.md",
+    "README.md",
+    "PROJECT.md",
+    "analysis/COMPARISON.md",
+    "studio/MANUAL_FALLBACK.md"
+  ]
+}
