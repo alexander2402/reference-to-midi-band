@@ -77,6 +77,15 @@ The direct MIDI render is `renders/00_full_arrangement.wav`. The promoted full-s
 
 Primary project: `Gorodok_Matched.band`
 
+Both user-saved native packages are retained side by side:
+
+| Saved package | Role | History tag | Git coverage |
+|---|---|---|---|
+| `Gorodok_Matched.band` | Preserved original/source version | `source-before-lisiy-final` | Direct binary tracking |
+| `Gorodok_Matched-lisiy-final.band` | Separate user Save As version | `lisiy-final` | Direct binary tracking |
+
+The second package does not overwrite the first. It contains nine saved tracks and three embedded Bright Vocal audio files; the preserved source package contains seven saved tracks. User exports `kuplet1test.mp3` and `лысый городок.mp3` are also retained and tracked.
+
 Current saved project metadata:
 
 - GarageBand 10.4.3, build 5433

@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "revision": "20260807T162230Z-lisiy-final-790e3281",
+  "project_id": "gorodok_angelika_varum_1993",
+  "created_at": "2026-08-07T16:22:30+00:00",
+  "author": "user",
+  "label": "lisiy-final",
+  "summary": "Separate user Save As version retained alongside the original project.",
+  "parent": "20260807T162224Z-source-before-lisiy-final-084c5ffc",
+  "content_sha256": "790e3281f1f812255e408ba68b175ae688262f7b18e699614471bcbf18fcefa5",
+  "git_commit": "083e27190c24e7968671564e646dba1be7063fa7",
+  "artifacts": [
+    {
+      "path": "Gorodok_Matched-lisiy-final.band",
+      "kind": "directory",
+      "sha256": "14ba73ac3570010b44b3ba036b9993b037a3a0f751eda0ce64a24f31fdbfaa06",
+      "bytes": 64362907
+    }
+  ],
+  "object_store": ".history/objects/20260807T162230Z-lisiy-final-790e3281/artifacts"
+}

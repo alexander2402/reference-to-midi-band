@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import subprocess
 import sys
 import unittest
 from pathlib import Path
@@ -143,9 +144,9 @@ class StudioSystemTests(unittest.TestCase):
         refs = json.loads(REFS.read_text(encoding="utf-8"))
         revision = refs["head"]
         self.assertTrue(revision)
+        self.assertIn("better-initial-output-example", refs["tags"])
         manifest = json.loads((REVISIONS / f"{revision}.json").read_text(encoding="utf-8"))
         self.assertEqual(manifest["project_id"], self.spec["project_id"])
-        self.assertEqual(refs["tags"]["better-initial-output-example"], revision)
         object_root = OBJECTS / revision / "artifacts"
         for artifact in manifest["artifacts"]:
             snapshot = object_root / artifact["path"]
@@ -156,6 +157,21 @@ class StudioSystemTests(unittest.TestCase):
         example = self.spec["examples"]["better_initial_output"]
         self.assertEqual(example["comparison_scope"], "partial_first_131_seconds")
         self.assertEqual(example["status"], "directional_reference_not_full_song_promotion")
+
+    def test_all_active_native_versions_are_preserved_and_git_visible(self) -> None:
+        refs = json.loads(REFS.read_text(encoding="utf-8"))
+        self.assertEqual(len(self.spec["native_versions"]), 2)
+        for version in self.spec["native_versions"]:
+            path = ROOT / version["path"]
+            self.assertTrue(path.is_dir(), version["id"])
+            self.assertIn(version["history_tag"], refs["tags"])
+            probe = path / "Alternatives" / "000" / "ProjectData"
+            ignored = subprocess.run(
+                ["git", "check-ignore", "-q", str(probe)],
+                cwd=REPO_ROOT,
+                check=False,
+            ).returncode == 0
+            self.assertFalse(ignored, version["id"])
 
 
 if __name__ == "__main__":

@@ -6,6 +6,7 @@ from __future__ import annotations
 import json
 import plistlib
 import re
+import subprocess
 from pathlib import Path
 from typing import Any
 
@@ -74,6 +75,7 @@ def audit(spec: dict[str, Any]) -> dict[str, Any]:
     )
 
     history_refs = load_json(REFS) if REFS.exists() else {}
+    history_tags = history_refs.get("tags", {})
     history_head = history_refs.get("head")
     history_manifest_path = REVISIONS / f"{history_head}.json" if history_head else None
     history_manifest = (
@@ -112,6 +114,49 @@ def audit(spec: dict[str, Any]) -> dict[str, Any]:
             if not history_object_errors else f"invalid={history_object_errors}",
         )
     )
+    for version in spec.get("native_versions", []):
+        version_path = resolve(version["path"])
+        tracked_probe = version_path / "Alternatives" / "000" / "ProjectData"
+        ignored = subprocess.run(
+            ["git", "check-ignore", "-q", str(tracked_probe)],
+            cwd=REPO_ROOT,
+            check=False,
+        ).returncode == 0
+        checks.append(
+            check(
+                version_path.exists(),
+                f"Native version exists: {version['id']}",
+                version["path"],
+            )
+        )
+        checks.append(
+            check(
+                version.get("history_tag") in history_tags,
+                f"Native version checkpoint: {version['id']}",
+                str(version.get("history_tag")),
+            )
+        )
+        checks.append(
+            check(
+                not ignored,
+                f"Native version visible to Git: {version['id']}",
+                "not ignored" if not ignored else "ignored",
+            )
+        )
+    for export in spec.get("user_exports", []):
+        export_path = resolve(export)
+        ignored = subprocess.run(
+            ["git", "check-ignore", "-q", str(export_path)],
+            cwd=REPO_ROOT,
+            check=False,
+        ).returncode == 0
+        checks.append(
+            check(
+                export_path.exists() and not ignored,
+                f"User export visible to Git: {export}",
+                "exists and not ignored" if export_path.exists() and not ignored else "missing or ignored",
+            )
+        )
 
     mix_policy = spec.get("mix_policy", {})
     checks.append(

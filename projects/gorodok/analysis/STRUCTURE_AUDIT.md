@@ -1,6 +1,6 @@
 # Project structure audit
 
-Overall status: **PASS**. Passed: 76; failed: 0; warnings: 0.
+Overall status: **PASS**. Passed: 83; failed: 0; warnings: 1.
 
 | Status | Check | Evidence |
 |---|---|---|
@@ -11,9 +11,17 @@ Overall status: **PASS**. Passed: 76; failed: 0; warnings: 0.
 | PASS | New-machine fallback | Manual fallback exists |
 | PASS | Producer project registry | projects=['gorodok'] |
 | PASS | Project isolation | No track-specific artifact directories at producer root |
-| PASS | Project history HEAD | 20260807T131140Z-user-simplified-instruments-e1505efe |
+| PASS | Project history HEAD | 20260807T162230Z-lisiy-final-790e3281 |
 | PASS | Project history identity | gorodok_angelika_varum_1993 |
 | PASS | Project history object integrity | All HEAD artifacts match their hashes |
+| PASS | Native version exists: source-before-lisiy-final | Gorodok_Matched.band |
+| PASS | Native version checkpoint: source-before-lisiy-final | source-before-lisiy-final |
+| PASS | Native version visible to Git: source-before-lisiy-final | not ignored |
+| PASS | Native version exists: lisiy-final | Gorodok_Matched-lisiy-final.band |
+| PASS | Native version checkpoint: lisiy-final | lisiy-final |
+| PASS | Native version visible to Git: lisiy-final | not ignored |
+| PASS | User export visible to Git: kuplet1test.mp3 | exists and not ignored |
+| PASS | User export visible to Git: лысый городок.mp3 | exists and not ignored |
 | PASS | Immutable volume policy | Master and track volume are read-only |
 | PASS | EQ-only balance policy | Balance method is equalizer |
 | PASS | No writable volume targets | No fader/volume/gain targets in project tracks |
@@ -79,6 +87,6 @@ Overall status: **PASS**. Passed: 76; failed: 0; warnings: 0.
 | PASS | Persisted native name: track 7 | Crystal Synth Line (Transcribed) |
 | PASS | Workspace organization | missing=[] |
 | PASS | Canonical artifact naming | No trial versions in active analysis/renders |
-| PASS | Root directory cleanliness | root audio=[] |
+| WARN | Root directory cleanliness | root audio=['kuplet1test.mp3', 'лысый городок.mp3'] |
 
 This audit is generated from the selected `projects/<track>/project.json`; it verifies the producer rules, the STUDIO.md delivery contract, and the promoted KPI thresholds.

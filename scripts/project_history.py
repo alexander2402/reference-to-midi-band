@@ -132,7 +132,7 @@ def artifact_record(path: Path) -> dict[str, Any]:
 
 def checkpoint(args: argparse.Namespace) -> dict[str, Any]:
     spec = load_spec(Path(args.spec))
-    native = project_path(spec["deliverables"]["native_project"])
+    native = project_path(args.native or spec["deliverables"]["native_project"])
     paths = [native, *(project_path(value) for value in args.include)]
     unique: list[Path] = []
     for path in paths:
@@ -258,6 +258,7 @@ def parser() -> argparse.ArgumentParser:
     create.add_argument("--summary", required=True)
     create.add_argument("--author", default="producer")
     create.add_argument("--tag")
+    create.add_argument("--native", help="Alternate native .band package inside the selected project")
     create.add_argument("--include", action="append", default=[])
     materialize_command = commands.add_parser("materialize")
     materialize_command.add_argument("revision")

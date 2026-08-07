@@ -50,6 +50,26 @@
     "structure_audit": "analysis/STRUCTURE_AUDIT.md",
     "comparison_report": "analysis/COMPARISON.md"
   },
+  "native_versions": [
+    {
+      "id": "source-before-lisiy-final",
+      "path": "Gorodok_Matched.band",
+      "role": "preserved_original",
+      "history_tag": "source-before-lisiy-final",
+      "git_tracking": "direct_binary"
+    },
+    {
+      "id": "lisiy-final",
+      "path": "Gorodok_Matched-lisiy-final.band",
+      "role": "user_save_as_version",
+      "history_tag": "lisiy-final",
+      "git_tracking": "direct_binary"
+    }
+  ],
+  "user_exports": [
+    "kuplet1test.mp3",
+    "лысый городок.mp3"
+  ],
   "midi_render": {
     "programs": [90, 33, 0, 52, 98],
     "renderer": "../../scripts/render_midi"

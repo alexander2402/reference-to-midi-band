@@ -18,7 +18,7 @@ Shape tonal balance and perceived prominence with equalization. If EQ cannot sol
 
 ## PR-003 — Track completed producer changes in Git
 
-Producer code, rules, tests, project specifications, MIDI, and compact analysis evidence must be committed as coherent checkpoints after validation. Generated audio, native `.band` packages, large sources, candidates, fixtures, and archives remain ignored because they are reproducible or too large for ordinary Git tracking.
+Producer code, rules, tests, project specifications, MIDI, and compact analysis evidence must be committed as coherent checkpoints after validation. When the user explicitly requires Git protection for active native packages, track only the active `projects/<track>/*.band` packages and named user exports as binary artifacts; keep candidates, fixtures, local history objects, and archives ignored. Prefer Git LFS when it is available.
 
 ## PR-004 — Version projects with checkpoints, not filenames
 

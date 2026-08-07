@@ -6,7 +6,10 @@ __pycache__/
 *.pyc
 
 *.band/
+!projects/*/*.band/
+!projects/*/*.band/**
 *.mp3
+!projects/*/*.mp3
 projects/*/analysis/*.wav
 projects/*/analysis/.matplotlib/
 projects/*/analysis/basic_pitch/

@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "revision": "20260807T162224Z-source-before-lisiy-final-084c5ffc",
+  "project_id": "gorodok_angelika_varum_1993",
+  "created_at": "2026-08-07T16:22:24+00:00",
+  "author": "user",
+  "label": "source-before-lisiy-final",
+  "summary": "Original user project retained before the separate lisiy-final Save As version.",
+  "parent": "20260807T131140Z-user-simplified-instruments-e1505efe",
+  "content_sha256": "084c5ffcf05d3229be532ff2e011da259d4dcd5c5e77f1527ee0be86ab5eab36",
+  "git_commit": "083e27190c24e7968671564e646dba1be7063fa7",
+  "artifacts": [
+    {
+      "path": "Gorodok_Matched.band",
+      "kind": "directory",
+      "sha256": "1c1472f60d68092b4575aa842039e9b05a9fbf0ec6cf70a51567534d18d47eeb",
+      "bytes": 71258284
+    }
+  ],
+  "object_store": ".history/objects/20260807T162224Z-source-before-lisiy-final-084c5ffc/artifacts"
+}

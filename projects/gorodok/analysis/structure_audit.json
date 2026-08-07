@@ -3,9 +3,9 @@
   "project_id": "gorodok_angelika_varum_1993",
   "status": "PASS",
   "summary": {
-    "passed": 76,
+    "passed": 83,
     "failed": 0,
-    "warnings": 0
+    "warnings": 1
   },
   "checks": [
     {
@@ -54,7 +54,7 @@
       "name": "Project history HEAD",
       "status": "PASS",
       "required": true,
-      "evidence": "20260807T131140Z-user-simplified-instruments-e1505efe"
+      "evidence": "20260807T162230Z-lisiy-final-790e3281"
     },
     {
       "name": "Project history identity",
@@ -67,6 +67,54 @@
       "status": "PASS",
       "required": true,
       "evidence": "All HEAD artifacts match their hashes"
+    },
+    {
+      "name": "Native version exists: source-before-lisiy-final",
+      "status": "PASS",
+      "required": true,
+      "evidence": "Gorodok_Matched.band"
+    },
+    {
+      "name": "Native version checkpoint: source-before-lisiy-final",
+      "status": "PASS",
+      "required": true,
+      "evidence": "source-before-lisiy-final"
+    },
+    {
+      "name": "Native version visible to Git: source-before-lisiy-final",
+      "status": "PASS",
+      "required": true,
+      "evidence": "not ignored"
+    },
+    {
+      "name": "Native version exists: lisiy-final",
+      "status": "PASS",
+      "required": true,
+      "evidence": "Gorodok_Matched-lisiy-final.band"
+    },
+    {
+      "name": "Native version checkpoint: lisiy-final",
+      "status": "PASS",
+      "required": true,
+      "evidence": "lisiy-final"
+    },
+    {
+      "name": "Native version visible to Git: lisiy-final",
+      "status": "PASS",
+      "required": true,
+      "evidence": "not ignored"
+    },
+    {
+      "name": "User export visible to Git: kuplet1test.mp3",
+      "status": "PASS",
+      "required": true,
+      "evidence": "exists and not ignored"
+    },
+    {
+      "name": "User export visible to Git: лысый городок.mp3",
+      "status": "PASS",
+      "required": true,
+      "evidence": "exists and not ignored"
     },
     {
       "name": "Immutable volume policy",
@@ -460,9 +508,9 @@
     },
     {
       "name": "Root directory cleanliness",
-      "status": "PASS",
+      "status": "WARN",
       "required": false,
-      "evidence": "root audio=[]"
+      "evidence": "root audio=['kuplet1test.mp3', 'лысый городок.mp3']"
     }
   ]
 }

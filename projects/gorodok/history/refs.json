@@ -1,7 +1,9 @@
 {
   "schema_version": 1,
-  "head": "20260807T131140Z-user-simplified-instruments-e1505efe",
+  "head": "20260807T162230Z-lisiy-final-790e3281",
   "tags": {
-    "better-initial-output-example": "20260807T131140Z-user-simplified-instruments-e1505efe"
+    "better-initial-output-example": "20260807T131140Z-user-simplified-instruments-e1505efe",
+    "source-before-lisiy-final": "20260807T162224Z-source-before-lisiy-final-084c5ffc",
+    "lisiy-final": "20260807T162230Z-lisiy-final-790e3281"
   }
 }

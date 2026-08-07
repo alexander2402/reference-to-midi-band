@@ -29,7 +29,7 @@ See [`projects/README.md`](projects/README.md) for the per-track contract and [`
 
 ## Current projects
 
-- [`projects/gorodok/`](projects/gorodok/) — Анжелика Варум, “Городок”. Open [`Gorodok_Matched.band`](projects/gorodok/Gorodok_Matched.band), or listen to [`Gorodok_Matched_GarageBand_verified.wav`](projects/gorodok/renders/Gorodok_Matched_GarageBand_verified.wav).
+- [`projects/gorodok/`](projects/gorodok/) — Анжелика Варум, “Городок”. The preserved [`Gorodok_Matched.band`](projects/gorodok/Gorodok_Matched.band) and separate [`Gorodok_Matched-lisiy-final.band`](projects/gorodok/Gorodok_Matched-lisiy-final.band) are both retained and Git-tracked as binary project artifacts.
 
 ## Add a track
 
@@ -72,6 +72,6 @@ STUDIO_PROJECT=gorodok .analysis-venv/bin/python scripts/project_history.py diff
 STUDIO_PROJECT=gorodok .analysis-venv/bin/python scripts/project_history.py materialize <revision-or-tag> /tmp/history-view
 ```
 
-Git tracks revision manifests, refs, summaries, and hashes. Large `.band` and audio snapshots remain in the local `.history/objects/` store; they can later be mirrored through Git LFS or an artifact backend without changing the history model.
+Git tracks revision manifests, refs, summaries, and hashes. Immutable checkpoint snapshots also remain in the local `.history/objects/` store and can later be mirrored through Git LFS or an artifact backend without changing the history model.
 
-Large generated audio, native `.band` packages, references, candidates, archives, and fixtures are intentionally excluded from Git. The reproducible producer code, rules, tests, specifications, MIDI, and compact evidence are tracked.
+The active user-saved `.band` packages and named user exports are tracked directly as binary Git artifacts. Large references, generated candidates, archives, fixtures, and local history objects remain excluded. Git LFS is preferred for future remote scaling but was unavailable during the current setup.

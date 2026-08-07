@@ -10,3 +10,5 @@ STUDIO_PROJECT=gorodok .analysis-venv/bin/python scripts/project_history.py mate
 ```
 
 `materialize` never overwrites the active project. It creates a separate readable copy, so looking into the past cannot destroy the present. A future remote artifact backend or Git LFS can mirror `.history/objects/`; the tracked hashes make missing or corrupted objects detectable.
+
+Both active user-saved `.band` packages are also tracked directly by Git on this machine because Git LFS was unavailable. Historical archive packages remain excluded. The immutable checkpoint store is still authoritative for named project revisions and safe materialization.
