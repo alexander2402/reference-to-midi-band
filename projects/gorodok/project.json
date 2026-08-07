@@ -64,47 +64,66 @@
     "application": "GarageBand",
     "tested_version": "10.4.3",
     "tested_build": "5433",
+    "bootstrap_from_midi": false,
+    "bootstrap_note": "The user-authored example contains two Bright Vocal audio tracks and must be restored from project history rather than rebuilt from MIDI alone.",
     "export_basename": "Gorodok_Matched_GarageBand_verified",
     "tracks": [
       {
         "index": 1,
-        "name": "Conductor",
-        "patch": "Steinway Grand Piano",
-        "search": "Steinway Grand Piano",
-        "preserve": true
-      },
-      {
-        "index": 2,
         "name": "Poly Synth Accompaniment (Transcribed)",
         "patch": "Classic Electric Piano",
         "search": "Electric Piano"
       },
       {
-        "index": 3,
+        "index": 2,
         "name": "Fingered Bass (Transcribed)",
-        "patch": "Fingerstyle Bass",
-        "search": "Fingerstyle Bass"
+        "patch": "Upright Studio Bass",
+        "search": "Upright Studio Bass"
       },
       {
-        "index": 4,
+        "index": 3,
         "name": "Electronic Drums",
         "patch": "SoCal",
         "search": "SoCal",
         "preserve": true
       },
       {
-        "index": 5,
+        "index": 4,
         "name": "Vocal Melody Guide",
         "patch": "Female Chamber Choir",
         "search": "Choir"
       },
       {
+        "index": 5,
+        "name": "Bright Vocal#01",
+        "patch": "Bright Vocal",
+        "search": "Bright Vocal",
+        "source_type": "audio"
+      },
+      {
         "index": 6,
+        "name": "Bright Vocal#01.1",
+        "patch": "Bright Vocal",
+        "search": "Bright Vocal",
+        "source_type": "audio"
+      },
+      {
+        "index": 7,
         "name": "Crystal Synth Line (Transcribed)",
-        "patch": "Glass Bells",
-        "search": "Glass Bells"
+        "patch": "Steinway Grand Piano",
+        "search": "Steinway Grand Piano"
       }
     ]
+  },
+  "examples": {
+    "better_initial_output": {
+      "history_revision": "20260807T131140Z-user-simplified-instruments-e1505efe",
+      "tag": "better-initial-output-example",
+      "comparison_scope": "partial_first_131_seconds",
+      "status": "directional_reference_not_full_song_promotion",
+      "summary": "Simpler acoustic/electric core patches plus Bright Vocal audio improved perceived clarity and reference-like brightness without changing the arrangement grid.",
+      "analysis": "analysis/USER_INITIAL_OUTPUT_REVIEW.md"
+    }
   },
   "quality": {
     "direct_midi": {
@@ -149,6 +168,7 @@
   },
   "documentation": [
     "PROJECT.md",
-    "analysis/COMPARISON.md"
+    "analysis/COMPARISON.md",
+    "analysis/USER_INITIAL_OUTPUT_REVIEW.md"
   ]
 }

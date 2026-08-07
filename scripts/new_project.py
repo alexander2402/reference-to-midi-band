@@ -17,7 +17,9 @@ DIRECTORIES = (
     "midi",
     "renders",
     "sources",
+    "history/revisions",
     ".studio/candidates",
+    ".history/objects",
 )
 
 
@@ -72,6 +74,10 @@ def main() -> None:
     )
     (destination / "PROJECT.md").write_text(
         f"# Project — {slug}\n\nStatus: initialized; reference confirmation pending.\n",
+        encoding="utf-8",
+    )
+    (destination / "history" / "refs.json").write_text(
+        json.dumps({"schema_version": 1, "head": None, "tags": {}}, indent=2) + "\n",
         encoding="utf-8",
     )
     print(destination)

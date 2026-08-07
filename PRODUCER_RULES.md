@@ -19,3 +19,9 @@ Shape tonal balance and perceived prominence with equalization. If EQ cannot sol
 ## PR-003 — Track completed producer changes in Git
 
 Producer code, rules, tests, project specifications, MIDI, and compact analysis evidence must be committed as coherent checkpoints after validation. Generated audio, native `.band` packages, large sources, candidates, fixtures, and archives remain ignored because they are reproducible or too large for ordinary Git tracking.
+
+## PR-004 — Version projects with checkpoints, not filenames
+
+Never create `final2`, `v7`, or similar copies to represent the history of one track. Before a meaningful user edit or automated experiment, create an immutable project checkpoint with a parent, content hash, author, concise summary, and optional tag.
+
+Git tracks the checkpoint manifests and refs. Large `.band` and audio objects live in the project's `.history/objects/` store. Navigate with `HEAD`, tags, revision prefixes, `list`, `show`, and `diff`. Looking into the past must use `materialize` to a separate destination; it must never overwrite the active project implicitly.

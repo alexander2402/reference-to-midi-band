@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "revision": "20260807T131140Z-user-simplified-instruments-e1505efe",
+  "project_id": "gorodok_angelika_varum_1993",
+  "created_at": "2026-08-07T13:11:40+00:00",
+  "author": "user",
+  "label": "user-simplified-instruments",
+  "summary": "User-authored simpler instrument sound and Bright Vocal media; retained as the model for a better initial output.",
+  "parent": null,
+  "content_sha256": "e1505efea28ee473b0a77395ad15f630b9da92719f116c3ff7b2966be867b7f4",
+  "git_commit": "2b4e188a8466ef83428baaae4eeaa1317f76bba0",
+  "evidence": {
+    "scope": "partial_first_131_seconds",
+    "status": "directional_reference_not_full_song_promotion",
+    "review": "analysis/USER_INITIAL_OUTPUT_REVIEW.md",
+    "comparisons": [
+      "analysis/user_vocal_test_1_comparison.json",
+      "analysis/user_vocal_test_2_comparison.json",
+      "analysis/accepted_native_first_131s_comparison.json"
+    ]
+  },
+  "artifacts": [
+    {
+      "path": "Gorodok_Matched.band",
+      "kind": "directory",
+      "sha256": "040bc7b36b2eecd8194a5f8717fc95748bee0258e0fe6a6370d6d2fe2427e0c2",
+      "bytes": 20024039
+    },
+    {
+      "path": "gorodok vocal test.mp3",
+      "kind": "file",
+      "sha256": "52e01d793b0ab1bb90c74900815a620754e1830fff01905cf42bc81f9b995597",
+      "bytes": 4205422
+    },
+    {
+      "path": "gorodok vocal test 2 (same vocal volume as the rest of the tracks).mp3",
+      "kind": "file",
+      "sha256": "7150712c4225224f15a1819ca41621dfea3af324ef875dba9bcc112cb3e9dc67",
+      "bytes": 4205422
+    }
+  ],
+  "object_store": ".history/objects/20260807T131140Z-user-simplified-instruments-e1505efe/artifacts"
+}

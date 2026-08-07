@@ -20,3 +20,5 @@ scripts/cgclick
 scripts/render_midi
 projects/*/sources/*.webm
 projects/*/.studio/candidates/
+projects/*/.history/objects/
+projects/*/.history/tmp/

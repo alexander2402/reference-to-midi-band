@@ -12,6 +12,7 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
 from studio_common import ROOT, load_spec, promotion_decision, report_metrics  # noqa: E402
+from project_history import OBJECTS, REFS, REVISIONS, artifact_hash  # noqa: E402
 
 
 class StudioSystemTests(unittest.TestCase):
@@ -137,6 +138,24 @@ class StudioSystemTests(unittest.TestCase):
         rules = (REPO_ROOT / "PRODUCER_RULES.md").read_text(encoding="utf-8")
         self.assertIn("Every track is a project", rules)
         self.assertIn("Never change volume", rules)
+
+    def test_project_history_head_is_complete_and_recoverable(self) -> None:
+        refs = json.loads(REFS.read_text(encoding="utf-8"))
+        revision = refs["head"]
+        self.assertTrue(revision)
+        manifest = json.loads((REVISIONS / f"{revision}.json").read_text(encoding="utf-8"))
+        self.assertEqual(manifest["project_id"], self.spec["project_id"])
+        self.assertEqual(refs["tags"]["better-initial-output-example"], revision)
+        object_root = OBJECTS / revision / "artifacts"
+        for artifact in manifest["artifacts"]:
+            snapshot = object_root / artifact["path"]
+            self.assertTrue(snapshot.exists(), artifact["path"])
+            self.assertEqual(artifact_hash(snapshot), artifact["sha256"])
+
+    def test_better_initial_output_is_directional_not_promoted(self) -> None:
+        example = self.spec["examples"]["better_initial_output"]
+        self.assertEqual(example["comparison_scope"], "partial_first_131_seconds")
+        self.assertEqual(example["status"], "directional_reference_not_full_song_promotion")
 
 
 if __name__ == "__main__":

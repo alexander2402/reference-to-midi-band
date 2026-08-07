@@ -12,6 +12,7 @@ from typing import Any
 import mido
 
 from studio_common import DEFAULT_SPEC, REPO_ROOT, ROOT, atomic_write_json, load_json, load_spec, report_metrics, resolve, sha256
+from project_history import OBJECTS, REFS, REVISIONS, artifact_hash
 
 
 OUTPUT_JSON = ROOT / "analysis" / "structure_audit.json"
@@ -69,6 +70,46 @@ def audit(spec: dict[str, Any]) -> dict[str, Any]:
             "Project isolation",
             "No track-specific artifact directories at producer root"
             if not leaked_project_directories else f"leaked={leaked_project_directories}",
+        )
+    )
+
+    history_refs = load_json(REFS) if REFS.exists() else {}
+    history_head = history_refs.get("head")
+    history_manifest_path = REVISIONS / f"{history_head}.json" if history_head else None
+    history_manifest = (
+        load_json(history_manifest_path)
+        if history_manifest_path is not None and history_manifest_path.exists()
+        else {}
+    )
+    checks.append(
+        check(
+            bool(history_head) and bool(history_manifest),
+            "Project history HEAD",
+            str(history_head),
+        )
+    )
+    checks.append(
+        check(
+            history_manifest.get("project_id") == spec.get("project_id"),
+            "Project history identity",
+            str(history_manifest.get("project_id")),
+        )
+    )
+    history_object_root = OBJECTS / str(history_head) / "artifacts" if history_head else None
+    history_object_errors: list[str] = []
+    if history_object_root is not None and history_manifest:
+        for artifact in history_manifest.get("artifacts", []):
+            snapshot = history_object_root / artifact["path"]
+            if not snapshot.exists() or artifact_hash(snapshot) != artifact["sha256"]:
+                history_object_errors.append(artifact["path"])
+    checks.append(
+        check(
+            history_object_root is not None
+            and history_object_root.exists()
+            and not history_object_errors,
+            "Project history object integrity",
+            "All HEAD artifacts match their hashes"
+            if not history_object_errors else f"invalid={history_object_errors}",
         )
     )
 

@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "verified_at": "2026-08-07T11:29:16+00:00",
+  "verified_at": "2026-08-07T13:19:33+00:00",
   "project": "Gorodok_Matched.band",
-  "project_fingerprint": "ffa6002892404377cbf0632531017e5774d3d47d4a0ac3895354d05cd83a25c5",
+  "project_fingerprint": "06f3856c2605330d0a4cb2b6470819ca3077ce8b9db80cffbd59fc4f8c0f4074",
   "verification": {
     "status": "PASS",
     "project": "Gorodok_Matched.band",
@@ -10,44 +10,51 @@
     "tracks": [
       {
         "index": 1,
-        "name": "Conductor",
-        "patch": "Steinway Grand Piano",
-        "fader": 173,
+        "name": "Poly Synth Accompaniment (Transcribed)",
+        "patch": "Classic Electric Piano",
+        "fader": 233,
         "status": "PASS"
       },
       {
         "index": 2,
-        "name": "Poly Synth Accompaniment (Transcribed)",
-        "patch": "Classic Electric Piano",
-        "fader": 173,
+        "name": "Fingered Bass (Transcribed)",
+        "patch": "Upright Studio Bass",
+        "fader": 233,
         "status": "PASS"
       },
       {
         "index": 3,
-        "name": "Fingered Bass (Transcribed)",
-        "patch": "Fingerstyle Bass",
-        "fader": 153,
+        "name": "Electronic Drums",
+        "patch": "SoCal",
+        "fader": 233,
         "status": "PASS"
       },
       {
         "index": 4,
-        "name": "Electronic Drums",
-        "patch": "SoCal",
-        "fader": 173,
+        "name": "Vocal Melody Guide",
+        "patch": "Female Chamber Choir",
+        "fader": 233,
         "status": "PASS"
       },
       {
         "index": 5,
-        "name": "Vocal Melody Guide",
-        "patch": "Female Chamber Choir",
-        "fader": 173,
+        "name": "Bright Vocal#01",
+        "patch": "Bright Vocal",
+        "fader": 203,
         "status": "PASS"
       },
       {
         "index": 6,
+        "name": "Bright Vocal#01.1",
+        "patch": "Bright Vocal",
+        "fader": 203,
+        "status": "PASS"
+      },
+      {
+        "index": 7,
         "name": "Crystal Synth Line (Transcribed)",
-        "patch": "Glass Bells",
-        "fader": 163,
+        "patch": "Steinway Grand Piano",
+        "fader": 233,
         "status": "PASS"
       }
     ],

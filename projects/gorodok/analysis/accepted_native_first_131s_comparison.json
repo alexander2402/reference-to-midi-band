@@ -1,0 +1,58 @@
+{
+  "rms_envelope_correlation": 0.45366,
+  "onset_envelope_correlation": 0.67971,
+  "chroma_cosine_similarity": 0.92872,
+  "mfcc_timbre_similarity": 0.83245,
+  "median_spectral_centroid_reference_hz": 1547.83,
+  "median_spectral_centroid_render_hz": 863.66,
+  "si_sdr_db": -28.7662,
+  "onset_match": {
+    "reference_onsets": 482,
+    "rendered_onsets": 382,
+    "precision": 0.84293,
+    "recall": 0.66805,
+    "f1": 0.74537
+  },
+  "sections": [
+    {
+      "section": "Intro",
+      "coverage": 1.0,
+      "chroma": 0.89966,
+      "onset": 0.78754,
+      "rms": 0.67354,
+      "timbre": 0.72251
+    },
+    {
+      "section": "Chorus 1",
+      "coverage": 1.0,
+      "chroma": 0.92322,
+      "onset": 0.66657,
+      "rms": 0.29161,
+      "timbre": 0.84485
+    },
+    {
+      "section": "Interlude 1",
+      "coverage": 1.0,
+      "chroma": 0.95403,
+      "onset": 0.73192,
+      "rms": 0.08478,
+      "timbre": 0.90985
+    },
+    {
+      "section": "Verse 1",
+      "coverage": 1.0,
+      "chroma": 0.94709,
+      "onset": 0.65193,
+      "rms": 0.35066,
+      "timbre": 0.86586
+    },
+    {
+      "section": "Chorus 2",
+      "coverage": 0.5436,
+      "chroma": 0.92623,
+      "onset": 0.51387,
+      "rms": 0.12217,
+      "timbre": 0.84137
+    }
+  ]
+}

@@ -2,9 +2,9 @@
 
 ## Status
 
-**Ready for review: rebuilt MIDI, verified native GarageBand project, and post-reopen export.**
+**User-authored native revision preserved as the preferred initial sound direction; previous full-song render remains the promoted comparison baseline.**
 
-The first reconstruction was rejected after rendered comparison confirmed that its block-chord accompaniment and simplified melody did not follow the recording closely enough. The current deliverable was rebuilt from separated reference parts, passed seven direct-MIDI render iterations, and then passed five native GarageBand patch/mix iterations.
+The first reconstruction was rejected after rendered comparison confirmed that its block-chord accompaniment and simplified melody did not follow the recording closely enough. The rebuilt arrangement passed seven direct-MIDI iterations and five native passes. The user then simplified the native palette, added Bright Vocal audio, and saved two partial demonstrations. That exact state is retained as project-history tag `better-initial-output-example` and analyzed in `analysis/USER_INITIAL_OUTPUT_REVIEW.md`.
 
 ## Confirmed reference
 
@@ -69,33 +69,35 @@ Higher is better in the following comparison. The reference and every render wer
 |---|---:|---:|---:|---:|---:|
 | Rejected first MIDI render | 0.293 | 0.126 | 0.832 | 0.792 | 0.643 |
 | Selected direct MIDI render | 0.509 | 0.707 | 0.947 | 0.868 | 0.761 |
-| Verified GarageBand export | 0.429 | 0.644 | 0.934 | 0.841 | 0.752 |
+| Previous verified GarageBand export | 0.429 | 0.644 | 0.934 | 0.841 | 0.752 |
 
-The direct MIDI render is `renders/00_full_arrangement.wav`. The post-reopen native export is `renders/Gorodok_Matched_GarageBand_verified.wav`. Canonical results are in `analysis/midi_comparison.json`, `analysis/garageband_comparison.json`, and `analysis/COMPARISON.md`; rejected historical reports are under `archive/iterations/analysis/`.
+The direct MIDI render is `renders/00_full_arrangement.wav`. The promoted full-song native baseline remains `renders/Gorodok_Matched_GarageBand_verified.wav`; it predates the user's saved sound-direction example. The two partial user exports are under `renders/examples/user-simplified-instruments/`. Canonical results are in `analysis/midi_comparison.json`, `analysis/garageband_comparison.json`, and `analysis/COMPARISON.md`; the same-window example comparison is in `analysis/USER_INITIAL_OUTPUT_REVIEW.md`.
 
 ## Native GarageBand project
 
 Primary project: `Gorodok_Matched.band`
 
-Verified project metadata:
+Current saved project metadata:
 
 - GarageBand 10.4.3, build 5433
 - `77.733 BPM`, A minor, `4/4`
 - 44.1 kHz
-- six imported tracks including the conductor track
+- seven active tracks
 - all expected MIDI regions and track names
 
-Verified saved patches and read-only volume observations:
+Saved patches and read-only volume observations:
 
 | Track | GarageBand patch | Observed track-volume value |
 |---|---|---:|
-| Accompaniment | Classic Electric Piano | 173 |
-| Bass | Fingerstyle Bass | 153 |
-| Drums | SoCal | 173 |
-| Vocal guide | Female Chamber Choir | 173 |
-| High synth | Glass Bells | 163 |
+| Accompaniment | Classic Electric Piano | 233 |
+| Bass | Upright Studio Bass | 233 |
+| Drums | SoCal | 233 |
+| Vocal guide | Female Chamber Choir | 233 |
+| Bright Vocal 1 | Bright Vocal | 203 |
+| Bright Vocal 2 | Bright Vocal | 203 |
+| High line | Steinway Grand Piano | 233 |
 
-The final state was saved, played, closed, reopened, and re-inspected. All patch names persisted. The volume values above are historical read-only observations used only to detect mutation; producer rule PR-002 now prohibits writing track or master volume. The verified WAV was exported from that reopened state. The degraded first native attempt is retained only as `archive/Gorodok_Reconstruction_first_attempt.band` and is not a deliverable.
+The user-authored state was saved, closed, reopened, and inspected without modifying it. All patch names and the embedded Bright Vocal media persisted. The volume values above are historical read-only observations; producer rule PR-002 prohibits writing track or master volume. The partial MP3s are directional examples and do not replace the previous full-song export until a complete render passes the promotion gate. The degraded first native attempt remains only in `archive/Gorodok_Reconstruction_first_attempt.band`.
 
 ## Reproduction
 

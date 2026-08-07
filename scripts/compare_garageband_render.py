@@ -44,9 +44,11 @@ def main() -> None:
     metrics["sections"] = section_metrics(reference, rendered)
     report = {
         "reference_alignment_seconds_removed": REFERENCE_GRID_OFFSET,
-        "renderer": "GarageBand 10.4.3 native project export, PCM WAV 44.1 kHz / 16-bit / stereo",
+        "renderer": f"GarageBand user export ({render_path.suffix.lower().lstrip('.') or 'unknown format'})",
         "project": spec["deliverables"]["native_project"],
         "render": str(render_path),
+        "duration_seconds": round(len(rendered) / 22050, 3),
+        "comparison_scope": "full" if len(rendered) / 22050 >= float(spec["reference"]["duration_seconds"]) - 8 else "partial",
         "metrics": metrics,
     }
     output_path.parent.mkdir(parents=True, exist_ok=True)

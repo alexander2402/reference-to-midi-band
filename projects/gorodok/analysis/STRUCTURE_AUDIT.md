@@ -1,6 +1,6 @@
 # Project structure audit
 
-Overall status: **PASS**. Passed: 70; failed: 0; warnings: 0.
+Overall status: **PASS**. Passed: 76; failed: 0; warnings: 0.
 
 | Status | Check | Evidence |
 |---|---|---|
@@ -11,6 +11,9 @@ Overall status: **PASS**. Passed: 70; failed: 0; warnings: 0.
 | PASS | New-machine fallback | Manual fallback exists |
 | PASS | Producer project registry | projects=['gorodok'] |
 | PASS | Project isolation | No track-specific artifact directories at producer root |
+| PASS | Project history HEAD | 20260807T131140Z-user-simplified-instruments-e1505efe |
+| PASS | Project history identity | gorodok_angelika_varum_1993 |
+| PASS | Project history object integrity | All HEAD artifacts match their hashes |
 | PASS | Immutable volume policy | Master and track volume are read-only |
 | PASS | EQ-only balance policy | Balance method is equalizer |
 | PASS | No writable volume targets | No fader/volume/gain targets in project tracks |
@@ -33,6 +36,7 @@ Overall status: **PASS**. Passed: 70; failed: 0; warnings: 0.
 | PASS | Deliverable: comparison_report | analysis/COMPARISON.md |
 | PASS | Documentation | PROJECT.md |
 | PASS | Documentation | analysis/COMPARISON.md |
+| PASS | Documentation | analysis/USER_INITIAL_OUTPUT_REVIEW.md |
 | PASS | Section coverage | Sections cover bars 1–80 exactly once |
 | PASS | MIDI technical validation | analysis/midi_validation.json |
 | PASS | MIDI tempo matches spec | 77.733 BPM |
@@ -57,20 +61,22 @@ Overall status: **PASS**. Passed: 70; failed: 0; warnings: 0.
 | PASS | Native tempo | 77.73300170898438 |
 | PASS | Native key | A minor |
 | PASS | Native meter | 4/4 |
-| PASS | Native track count | 6 |
+| PASS | Native track count | 7 |
 | PASS | Native sample rate | 44100 |
-| PASS | Persisted native patch: track 1 | Steinway Grand Piano |
-| PASS | Persisted native name: track 1 | Conductor |
-| PASS | Persisted native patch: track 2 | Classic Electric Piano |
-| PASS | Persisted native name: track 2 | Poly Synth Accompaniment (Transcribed) |
-| PASS | Persisted native patch: track 3 | Fingerstyle Bass |
-| PASS | Persisted native name: track 3 | Fingered Bass (Transcribed) |
-| PASS | Persisted native patch: track 4 | SoCal |
-| PASS | Persisted native name: track 4 | Electronic Drums |
-| PASS | Persisted native patch: track 5 | Female Chamber Choir |
-| PASS | Persisted native name: track 5 | Vocal Melody Guide |
-| PASS | Persisted native patch: track 6 | Glass Bells |
-| PASS | Persisted native name: track 6 | Crystal Synth Line (Transcribed) |
+| PASS | Persisted native patch: track 1 | Classic Electric Piano |
+| PASS | Persisted native name: track 1 | Poly Synth Accompaniment (Transcribed) |
+| PASS | Persisted native patch: track 2 | Upright Studio Bass |
+| PASS | Persisted native name: track 2 | Fingered Bass (Transcribed) |
+| PASS | Persisted native patch: track 3 | SoCal |
+| PASS | Persisted native name: track 3 | Electronic Drums |
+| PASS | Persisted native patch: track 4 | Female Chamber Choir |
+| PASS | Persisted native name: track 4 | Vocal Melody Guide |
+| PASS | Persisted native patch: track 5 | Bright Vocal |
+| PASS | Persisted native name: track 5 | Bright Vocal#01 |
+| PASS | Persisted native patch: track 6 | Bright Vocal |
+| PASS | Persisted native name: track 6 | Bright Vocal#01.1 |
+| PASS | Persisted native patch: track 7 | Steinway Grand Piano |
+| PASS | Persisted native name: track 7 | Crystal Synth Line (Transcribed) |
 | PASS | Workspace organization | missing=[] |
 | PASS | Canonical artifact naming | No trial versions in active analysis/renders |
 | PASS | Root directory cleanliness | root audio=[] |

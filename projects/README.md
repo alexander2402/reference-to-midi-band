@@ -14,6 +14,7 @@ Every project owns:
 - `PROJECT.md` — current human-readable project state;
 - `midi/`, `renders/`, `analysis/`, and `sources/` — active track artifacts;
 - `.studio/candidates/` — temporary gated candidates;
+- `history/` and `.history/objects/` — Git-tracked revision index plus immutable heavy snapshots;
 - `archive/` — rejected or historical material.
 
 Shared scripts, rules, knowledge, tests, and GarageBand fixtures belong at the repository root.

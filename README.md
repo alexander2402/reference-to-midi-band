@@ -61,4 +61,17 @@ make native-sync \
 
 Master and track volume are immutable. The producer never writes them; runtime automation records the current track values and stops if they change. Balance is shaped with EQ, arrangement, velocity, articulation, register, density, or patch choice.
 
+## Navigate project history
+
+Meaningful native-project states use immutable checkpoints rather than `v2` filenames:
+
+```sh
+make history PROJECT=gorodok
+make history-show PROJECT=gorodok REVISION=HEAD
+STUDIO_PROJECT=gorodok .analysis-venv/bin/python scripts/project_history.py diff <older> <newer>
+STUDIO_PROJECT=gorodok .analysis-venv/bin/python scripts/project_history.py materialize <revision-or-tag> /tmp/history-view
+```
+
+Git tracks revision manifests, refs, summaries, and hashes. Large `.band` and audio snapshots remain in the local `.history/objects/` store; they can later be mirrored through Git LFS or an artifact backend without changing the history model.
+
 Large generated audio, native `.band` packages, references, candidates, archives, and fixtures are intentionally excluded from Git. The reproducible producer code, rules, tests, specifications, MIDI, and compact evidence are tracked.

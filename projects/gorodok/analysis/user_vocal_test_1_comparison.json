@@ -1,0 +1,66 @@
+{
+  "reference_alignment_seconds_removed": 0.648,
+  "renderer": "GarageBand user export (mp3)",
+  "project": "Gorodok_Matched.band",
+  "render": "projects/gorodok/renders/examples/user-simplified-instruments/vocal-test-1.mp3",
+  "duration_seconds": 131.291,
+  "comparison_scope": "partial",
+  "metrics": {
+    "rms_envelope_correlation": 0.47157,
+    "onset_envelope_correlation": 0.19742,
+    "chroma_cosine_similarity": 0.93048,
+    "mfcc_timbre_similarity": 0.83313,
+    "median_spectral_centroid_reference_hz": 1547.83,
+    "median_spectral_centroid_render_hz": 1177.14,
+    "si_sdr_db": -38.6557,
+    "onset_match": {
+      "reference_onsets": 482,
+      "rendered_onsets": 487,
+      "precision": 0.76181,
+      "recall": 0.76971,
+      "f1": 0.76574
+    },
+    "sections": [
+      {
+        "section": "Intro",
+        "coverage": 1.0,
+        "chroma": 0.92213,
+        "onset": 0.29288,
+        "rms": 0.77456,
+        "timbre": 0.88797
+      },
+      {
+        "section": "Chorus 1",
+        "coverage": 1.0,
+        "chroma": 0.91456,
+        "onset": 0.23781,
+        "rms": 0.25541,
+        "timbre": 0.79941
+      },
+      {
+        "section": "Interlude 1",
+        "coverage": 1.0,
+        "chroma": 0.95711,
+        "onset": 0.15128,
+        "rms": -0.05078,
+        "timbre": 0.86992
+      },
+      {
+        "section": "Verse 1",
+        "coverage": 1.0,
+        "chroma": 0.94841,
+        "onset": 0.12835,
+        "rms": 0.24041,
+        "timbre": 0.82128
+      },
+      {
+        "section": "Chorus 2",
+        "coverage": 0.5436,
+        "chroma": 0.92043,
+        "onset": 0.11766,
+        "rms": 0.08783,
+        "timbre": 0.83388
+      }
+    ]
+  }
+}

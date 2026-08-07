@@ -64,6 +64,22 @@
       "action": "Create projects/<track>/ and keep all of its source, MIDI, native, render, analysis, candidate, and archive artifacts inside it.",
       "evidence": "The first track occupied the repository root and made reusable producer code indistinguishable from song-specific state.",
       "confidence": 1.0
+    },
+    {
+      "id": "build-core-palette-before-decoration",
+      "scope": "initial_output",
+      "trigger": "Creating the first listenable native output for a new track.",
+      "action": "Start with the smallest credible palette for the musical roles; prefer familiar electric/acoustic patches and a human-like vocal cue, then add decorative synth layers only when A/B evidence shows they are needed.",
+      "evidence": "The user-rated Gorodok example sounded better after simplifying the bass and high-line patches to Upright Studio Bass and Steinway Grand Piano while keeping electric piano, SoCal drums, choir, and Bright Vocal audio.",
+      "confidence": 0.98
+    },
+    {
+      "id": "checkpoint-user-authored-native-state",
+      "scope": "project_history",
+      "trigger": "A user saves meaningful changes to a native project or an automated pass is about to modify that state.",
+      "action": "Create an immutable project-history checkpoint with parent, content hash, author, summary, and tag before any further mutation.",
+      "evidence": "The user-authored Gorodok sound direction changed embedded audio and native track structure that ordinary Git intentionally ignored.",
+      "confidence": 1.0
     }
   ]
 }

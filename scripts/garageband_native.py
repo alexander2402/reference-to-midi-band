@@ -214,6 +214,11 @@ def bootstrap_project(spec: dict[str, Any], *, dry_run: bool = False) -> dict[st
             "reason": "Native project already exists",
             "project": str(project.relative_to(ROOT)),
         }
+    if not spec.get("garageband", {}).get("bootstrap_from_midi", True):
+        raise AutomationError(
+            "This native project contains user-authored audio and cannot be rebuilt from MIDI alone; "
+            "materialize a project-history checkpoint instead"
+        )
     steps = [
         f"Open {source_midi.relative_to(ROOT)} in GarageBand",
         f"Save the imported Tracks window as {project.name} in {ROOT}",
@@ -346,12 +351,21 @@ def project_metadata(project: Path) -> dict[str, Any]:
 
 def project_fingerprint(project: Path) -> str:
     digest = hashlib.sha256()
-    for relative in (
+    critical = [
+        Path("projectData"),
         Path("Alternatives/000/ProjectData"),
         Path("Alternatives/000/MetaData.plist"),
         Path("Resources/ProjectInformation.plist"),
-    ):
+    ]
+    media = sorted(
+        path.relative_to(project)
+        for path in (project / "Media").rglob("*")
+        if path.is_file()
+    )
+    for relative in [*critical, *media]:
         path = project / relative
+        if not path.exists():
+            continue
         digest.update(str(relative).encode("utf-8"))
         digest.update(path.read_bytes())
     return digest.hexdigest()

@@ -144,13 +144,20 @@ def section_metrics(reference: np.ndarray, rendered: np.ndarray) -> list[dict[st
     ]
     seconds_per_beat = 60 / 77.733
     rows: list[dict[str, object]] = []
+    available_samples = min(len(reference), len(rendered))
     for name, start_beat, end_beat in sections:
         start = round(start_beat * seconds_per_beat * SR)
-        end = round(end_beat * seconds_per_beat * SR)
+        intended_end = round(end_beat * seconds_per_beat * SR)
+        if start >= available_samples:
+            break
+        end = min(intended_end, available_samples)
+        if end <= start:
+            continue
         metrics = compare_pair(reference[start:end], rendered[start:end])
         rows.append(
             {
                 "section": name,
+                "coverage": round((end - start) / max(1, intended_end - start), 4),
                 "chroma": metrics["chroma_cosine_similarity"],
                 "onset": metrics["onset_envelope_correlation"],
                 "rms": metrics["rms_envelope_correlation"],

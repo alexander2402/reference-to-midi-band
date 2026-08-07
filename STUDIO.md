@@ -133,6 +133,14 @@ The system must become more informed after every accepted or informative rejecte
 
 Add a knowledge rule only when evidence generalizes beyond the current song. Keep song-specific facts in the project spec or comparison report. Review and deduplicate knowledge before starting a new project so the brain grows in signal rather than in prose volume.
 
+## Project history
+
+Use `scripts/project_history.py` for meaningful saved states of the same track. Each checkpoint stores immutable heavy artifacts locally and a small Git-tracked revision manifest containing the parent, hash, author, summary, and related Git commit. `history/refs.json` provides `HEAD` and human tags.
+
+Create a checkpoint before changing a user-authored native project. Use `list`, `show`, and `diff` for navigation. Use `materialize` to open a past revision as a separate copy; do not silently replace the active project. This provides Git-like past/future navigation without polluting active deliverables with versioned filenames.
+
+A user-authored checkpoint may be retained as an initial-output example without being promoted as the full-song canonical render. Record its comparison scope and separate reusable arrangement/sound lessons from one-off volume settings.
+
 ## Required delivery set
 
 Unless the user requests otherwise, the finished workspace should contain:
