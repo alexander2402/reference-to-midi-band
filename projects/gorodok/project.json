@@ -1,6 +1,7 @@
 {
   "schema_version": 1,
   "project_id": "gorodok_angelika_varum_1993",
+  "project_slug": "gorodok",
   "title": "Городок",
   "artist": "Анжелика Варум",
   "reference": {
@@ -51,7 +52,13 @@
   },
   "midi_render": {
     "programs": [90, 33, 0, 52, 98],
-    "renderer": "scripts/render_midi"
+    "renderer": "../../scripts/render_midi"
+  },
+  "mix_policy": {
+    "master_volume": "do_not_touch",
+    "track_volume": "do_not_touch",
+    "balance_method": "equalizer",
+    "runtime_guard": "capture track-volume values before automation and fail if any value changes"
   },
   "garageband": {
     "application": "GarageBand",
@@ -64,44 +71,38 @@
         "name": "Conductor",
         "patch": "Steinway Grand Piano",
         "search": "Steinway Grand Piano",
-        "fader": null,
         "preserve": true
       },
       {
         "index": 2,
         "name": "Poly Synth Accompaniment (Transcribed)",
         "patch": "Classic Electric Piano",
-        "search": "Electric Piano",
-        "fader": 173
+        "search": "Electric Piano"
       },
       {
         "index": 3,
         "name": "Fingered Bass (Transcribed)",
         "patch": "Fingerstyle Bass",
-        "search": "Fingerstyle Bass",
-        "fader": 153
+        "search": "Fingerstyle Bass"
       },
       {
         "index": 4,
         "name": "Electronic Drums",
         "patch": "SoCal",
         "search": "SoCal",
-        "fader": 173,
         "preserve": true
       },
       {
         "index": 5,
         "name": "Vocal Melody Guide",
         "patch": "Female Chamber Choir",
-        "search": "Choir",
-        "fader": 173
+        "search": "Choir"
       },
       {
         "index": 6,
         "name": "Crystal Synth Line (Transcribed)",
         "patch": "Glass Bells",
-        "search": "Glass Bells",
-        "fader": 163
+        "search": "Glass Bells"
       }
     ]
   },
@@ -147,10 +148,7 @@
     }
   },
   "documentation": [
-    "STUDIO.md",
-    "README.md",
     "PROJECT.md",
-    "analysis/COMPARISON.md",
-    "studio/MANUAL_FALLBACK.md"
+    "analysis/COMPARISON.md"
   ]
 }

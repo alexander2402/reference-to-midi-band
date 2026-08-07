@@ -11,8 +11,8 @@ from pathlib import Path
 import librosa
 import numpy as np
 
+from studio_common import ROOT
 
-ROOT = Path(__file__).resolve().parents[1]
 STEMS = ROOT / "analysis" / "separated" / "htdemucs" / "reference"
 OUT = ROOT / "analysis"
 SR = 22050

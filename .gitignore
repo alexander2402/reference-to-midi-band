@@ -7,17 +7,16 @@ __pycache__/
 
 *.band/
 *.mp3
-analysis/*.wav
-analysis/.matplotlib/
-analysis/basic_pitch/
-analysis/clang-module-cache/
-analysis/separated/
-analysis/vocal_candidates/
-archive/
+projects/*/analysis/*.wav
+projects/*/analysis/.matplotlib/
+projects/*/analysis/basic_pitch/
+projects/*/analysis/clang-module-cache/
+projects/*/analysis/separated/
+projects/*/analysis/vocal_candidates/
+projects/*/archive/
 fixtures/garageband/
-renders/*.wav
+projects/*/renders/*.wav
 scripts/cgclick
-scripts/cgdrag
 scripts/render_midi
-sources/*.webm
-studio/candidates/
+projects/*/sources/*.webm
+projects/*/.studio/candidates/

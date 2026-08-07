@@ -1,21 +1,21 @@
 # GarageBand manual fallback
 
-Use this only when the automated native-project workflow reports that GarageBand, Accessibility permission, or Screen/Input control is unavailable on a new machine.
+Use this only when the automated native-project workflow reports that GarageBand, Accessibility permission, Screen/Input control, or a required sound-library patch is unavailable on a new machine.
 
 ## Required environment
 
-- GarageBand 10.4.3 or a deliberately re-verified newer version
-- the GarageBand sound library patches named in `studio/project.json`
-- Accessibility permission for the terminal or automation host if retrying automation
+- the GarageBand version declared by the selected `projects/<track>/project.json`, or a deliberately re-verified newer version;
+- the sound-library patches named in that project specification;
+- Accessibility permission for the terminal or automation host if retrying automation.
 
 ## Fallback procedure
 
-1. Open `midi/00_full_arrangement.mid` in GarageBand and save it as `Gorodok_Matched.band`.
-2. Confirm 77.733 BPM, A minor, 4/4, and all six tracks.
-3. Apply the patches and fader values from `garageband.tracks` in `studio/project.json`.
-4. Save, close, and reopen the project.
-5. Confirm every patch and fader value again. Do not continue if any value reverted.
-6. Play from bar 1, then export a WAVE file at 44.1 kHz.
-7. Run the comparison and promotion gate. A successful export alone is not acceptance.
+1. Open the selected project's `midi/00_full_arrangement.mid` in GarageBand and save the native project inside the same `projects/<track>/` directory.
+2. Confirm the tempo, key, meter, length, and track count from `projects/<track>/project.json`.
+3. Apply only the named patches. Never move master volume, master gain, track volume, or track gain.
+4. If tonal balance needs correction, use EQ. If EQ is insufficient, revisit arrangement, register, velocity, articulation, density, or patch choice.
+5. Save, close, and reopen the project. Confirm every patch again and confirm that track-volume values did not change.
+6. Play from bar 1, then export a WAVE file at the required sample rate.
+7. Run the full-reference comparison and promotion gate. A successful export alone is not acceptance.
 
-The automated workflow remains authoritative whenever it is available. This document is a portability fallback, not the normal production path.
+The automated workflow remains authoritative whenever available. Any new UI behavior discovered here must be encoded and regression-tested before the fallback becomes routine.

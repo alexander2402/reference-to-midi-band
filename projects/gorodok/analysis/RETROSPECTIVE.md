@@ -10,11 +10,11 @@ The generated structure audit now passes with no failures or warnings. See `anal
 
 | Requirement | Before retrospective | Result now |
 |---|---|---|
-| Confirmed identity and exact recording | Documented | Pass; canonicalized in `studio/project.json` |
+| Confirmed identity and exact recording | Documented | Pass; canonicalized in `project.json` |
 | BPM, key, meter, form, arrangement | Documented in several files | Pass; one machine-readable source of truth |
 | Full and per-part MIDI | Present and validated | Pass; canonical filenames preserved |
 | Direct rendered MIDI A/B | Present after seven attempts | Pass; selected report renamed `analysis/midi_comparison.json` |
-| Native `.band` | Created and manually verified | Pass; project, patches, faders, metadata, and fingerprint are machine-verifiable |
+| Native `.band` | Created and manually verified | Pass; project, patches, read-only volume observations, metadata, and fingerprint are machine-verifiable |
 | Native export A/B | Present | Pass; canonical report and render remain active |
 | Save/close/reopen verification | Performed but stored only in task history | Pass; recorded in `analysis/native_verification.json` |
 | Minimal user instructions | Present | Pass |
@@ -28,33 +28,33 @@ Active artifacts now use canonical names. Historical trial reports and approxima
 
 The active control plane is:
 
-- `studio/project.json`: complete project specification and KPI policy;
-- `studio/knowledge.json`: reusable evidence-backed rules;
+- `project.json`: complete project specification and KPI policy;
+- `../../studio/knowledge.json`: reusable evidence-backed rules shared by the producer;
 - `analysis/accepted_state.json`: promoted artifact hashes and KPI baseline;
 - `analysis/iteration_ledger.jsonl`: every evaluated hypothesis and decision;
 - `analysis/native_verification.json`: persisted post-reopen native evidence;
-- `scripts/audit_project.py`: delivery and KPI contract audit;
-- `scripts/studio_pipeline.py`: advice, evaluation, rejection, and promotion;
-- `scripts/garageband_native.py`: native bootstrap/synchronization/verification/export;
-- `tests/test_studio_system.py`: promotion and control-mapping regression tests.
+- `../../scripts/audit_project.py`: delivery and KPI contract audit;
+- `../../scripts/studio_pipeline.py`: advice, evaluation, rejection, and promotion;
+- `../../scripts/garageband_native.py`: native bootstrap/synchronization/verification/export;
+- `../../tests/test_studio_system.py`: producer regression tests.
 
 ## Manual/computer-use removal
 
 The native workflow is now:
 
 ```sh
-.analysis-venv/bin/python scripts/garageband_native.py preflight
-.analysis-venv/bin/python scripts/garageband_native.py sync \
-  --hypothesis "<one measurable hypothesis>" \
-  --primary-change "<one variable group>" \
-  --promote
+make native-preflight PROJECT=gorodok
+make native-sync PROJECT=gorodok \
+  HYPOTHESIS="<one measurable hypothesis>" \
+  PRIMARY_CHANGE="<one variable group>" \
+  PROMOTE=--promote
 ```
 
-`sync` applies the spec, performs persistent slider drags, saves, closes, reopens, verifies every track/patch/fader and the project metadata, exports a temporary WAV, compares it with the reference, invokes the KPI gate, records the decision, and removes the temporary candidate. No manual GarageBand action is part of the normal path.
+`sync` applies the spec without writing volume controls, captures existing track-volume values as a mutation guard, saves, closes, reopens, verifies every track/patch and the project metadata, exports a temporary WAV, compares it with the reference, invokes the KPI gate, records the decision, and removes the temporary candidate. No manual GarageBand action is part of the normal path.
 
 An end-to-end no-change replay completed successfully with `manual_actions_required: false`. The quality gate rejected it because its weighted score was `0.002075` below the accepted render. This is the intended behavior: reproducibility was proven without creating another “final” version or replacing a slightly better canonical artifact.
 
-`studio/MANUAL_FALLBACK.md` remains for a new machine whose GarageBand version, installed sound library, or macOS Accessibility state fails preflight. Any newly discovered UI shape must be encoded in the automation before production continues.
+`../../studio/MANUAL_FALLBACK.md` remains for a new machine whose GarageBand version, installed sound library, or macOS Accessibility state fails preflight. Any newly discovered UI shape must be encoded in the automation before production continues.
 
 ## Version-count and precision policy
 
@@ -69,9 +69,9 @@ Failed candidate audio is temporary. Its metrics and decision remain in the comp
 
 ## Brain update policy
 
-Every new pass begins with `scripts/studio_pipeline.py advise`. A learning enters `studio/knowledge.json` only when it has a reusable trigger, action, evidence, scope, and confidence. Song-specific facts remain in the project spec or comparison report. This prevents the “brain” from growing through duplicated narrative while preserving the decisions that materially improved later work.
+Every new pass begins with `make advise PROJECT=gorodok`. A learning enters `../../studio/knowledge.json` only when it has a reusable trigger, action, evidence, scope, and confidence. Song-specific facts remain in the project spec or comparison report. This prevents the “brain” from growing through duplicated narrative while preserving the decisions that materially improved later work.
 
-The first reusable rules include exact-grid-first timing, separate MIDI/native comparisons, imported-fader inspection, patch-name skepticism, post-reopen export, user-confirmed baseline preservation, and diagnosis before candidate generation.
+The first reusable rules include exact-grid-first timing, separate MIDI/native comparisons, immutable volume, patch-name skepticism, post-reopen export, user-confirmed baseline preservation, project isolation, and diagnosis before candidate generation.
 
 ## Remaining engineering risk
 

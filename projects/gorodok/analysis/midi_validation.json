@@ -6,7 +6,7 @@
   "files": [
     {
       "file": "midi/00_full_arrangement.mid",
-      "bytes": 30334,
+      "bytes": 30314,
       "format": 1,
       "ticks_per_beat": 480,
       "tempo_bpm": 77.732995,
@@ -62,7 +62,7 @@
     },
     {
       "file": "midi/01_accompaniment_transcribed.mid",
-      "bytes": 15607,
+      "bytes": 15603,
       "format": 1,
       "ticks_per_beat": 480,
       "tempo_bpm": 77.732995,
@@ -90,7 +90,7 @@
     },
     {
       "file": "midi/02_bass_transcribed.mid",
-      "bytes": 3962,
+      "bytes": 3958,
       "format": 1,
       "ticks_per_beat": 480,
       "tempo_bpm": 77.732995,
@@ -118,7 +118,7 @@
     },
     {
       "file": "midi/03_electronic_drums.mid",
-      "bytes": 9308,
+      "bytes": 9304,
       "format": 1,
       "ticks_per_beat": 480,
       "tempo_bpm": 77.732995,
@@ -146,7 +146,7 @@
     },
     {
       "file": "midi/04_vocal_melody_guide.mid",
-      "bytes": 4315,
+      "bytes": 4311,
       "format": 1,
       "ticks_per_beat": 480,
       "tempo_bpm": 77.732995,
@@ -174,7 +174,7 @@
     },
     {
       "file": "midi/05_high_synth_transcribed.mid",
-      "bytes": 5182,
+      "bytes": 5178,
       "format": 1,
       "ticks_per_beat": 480,
       "tempo_bpm": 77.732995,

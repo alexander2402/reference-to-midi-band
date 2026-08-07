@@ -9,8 +9,8 @@ from pathlib import Path
 
 import mido
 
+from studio_common import ROOT
 
-ROOT = Path(__file__).resolve().parents[1]
 MIDI_DIR = ROOT / "midi"
 ANALYSIS_DIR = ROOT / "analysis"
 TPB = 480
@@ -212,12 +212,10 @@ def note_track(
     program: int,
     events: list[NoteEvent],
     channel: int = 0,
-    volume: int = 100,
 ) -> mido.MidiTrack:
     timeline: list[tuple[int, int, mido.Message | mido.MetaMessage]] = [
         (0, 0, mido.MetaMessage("track_name", name=name)),
         (0, 1, mido.Message("program_change", program=program, channel=channel)),
-        (0, 2, mido.Message("control_change", control=7, value=volume, channel=channel)),
     ]
     for event in events:
         start = max(0, round(event.start * TPB))
@@ -385,13 +383,13 @@ def main() -> None:
     accompaniment, lead_events = load_accompaniment_events()
 
     conductor = conductor_track(chords)
-    keys = note_track("Poly Synth Accompaniment (Transcribed)", 90, accompaniment, volume=127)
-    bass = note_track("Fingered Bass (Transcribed)", 33, load_bass_events(), volume=127)
-    drums = note_track("Electronic Drums", 0, drum_events(), channel=9, volume=127)
+    keys = note_track("Poly Synth Accompaniment (Transcribed)", 90, accompaniment)
+    bass = note_track("Fingered Bass (Transcribed)", 33, load_bass_events())
+    drums = note_track("Electronic Drums", 0, drum_events(), channel=9)
     vocal = note_track(
-        "Vocal Melody Guide", 52, scale_velocities(load_vocal_events(), 1.22), volume=127
+        "Vocal Melody Guide", 52, scale_velocities(load_vocal_events(), 1.22)
     )
-    lead = note_track("Crystal Synth Line (Transcribed)", 98, lead_events, volume=127)
+    lead = note_track("Crystal Synth Line (Transcribed)", 98, lead_events)
 
     save_midi(MIDI_DIR / "00_full_arrangement.mid", [conductor, keys, bass, drums, vocal, lead])
     save_midi(MIDI_DIR / "01_accompaniment_transcribed.mid", [conductor_track(chords), keys])

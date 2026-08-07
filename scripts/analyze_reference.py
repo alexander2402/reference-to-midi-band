@@ -5,11 +5,12 @@ from __future__ import annotations
 
 import json
 import os
-from pathlib import Path
+
+from studio_common import ROOT
 
 import librosa
 os.environ.setdefault(
-    "MPLCONFIGDIR", str(Path(__file__).resolve().parents[1] / "analysis" / ".matplotlib")
+    "MPLCONFIGDIR", str(ROOT / "analysis" / ".matplotlib")
 )
 import matplotlib
 matplotlib.use("Agg")
@@ -17,7 +18,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-ROOT = Path(__file__).resolve().parents[1]
 AUDIO = ROOT / "analysis" / "reference.wav"
 OUT_DIR = ROOT / "analysis"
 HOP = 512

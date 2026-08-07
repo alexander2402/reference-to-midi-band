@@ -10,8 +10,8 @@ from pathlib import Path
 import mido
 import pretty_midi
 
+from studio_common import ROOT
 
-ROOT = Path(__file__).resolve().parents[1]
 MIDI_DIR = ROOT / "midi"
 OUT = ROOT / "analysis" / "midi_validation.json"
 EXPECTED_BPM = 77.733

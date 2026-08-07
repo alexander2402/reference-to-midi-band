@@ -29,7 +29,6 @@ from studio_common import DEFAULT_SPEC, ROOT, load_spec, resolve
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 CGCLICK = SCRIPT_DIR / "cgclick"
-CGDRAG = SCRIPT_DIR / "cgdrag"
 GARAGEBAND_APP = Path("/Applications/GarageBand.app")
 
 
@@ -69,7 +68,7 @@ def osascript(source: str, timeout: int = 30) -> str:
 
 
 def ensure_helpers() -> None:
-    for executable, source in ((CGCLICK, SCRIPT_DIR / "cgclick.m"), (CGDRAG, SCRIPT_DIR / "cgdrag.m")):
+    for executable, source in ((CGCLICK, SCRIPT_DIR / "cgclick.m"),):
         if executable.exists() and executable.stat().st_mtime >= source.stat().st_mtime:
             continue
         run(
@@ -125,6 +124,23 @@ def wait_for_window(window_name: str, timeout: int = 90) -> None:
     raise AutomationError(f"GarageBand window did not appear: {window_name}")
 
 
+def wait_for_window_absent(window_name: str, timeout: int = 30) -> None:
+    deadline = time.monotonic() + timeout
+    while time.monotonic() < deadline:
+        try:
+            found = osascript(
+                'tell application "System Events" to tell process "GarageBand"\n'
+                f'return exists window {apple_string(window_name)}\n'
+                "end tell"
+            )
+            if found.lower() == "false":
+                return
+        except AutomationError:
+            return
+        time.sleep(1)
+    raise AutomationError(f"GarageBand window did not close: {window_name}")
+
+
 def open_project(project: Path) -> str:
     run(["open", "-a", "GarageBand", str(project)], timeout=20)
     window_name = project_window(project)
@@ -151,7 +167,6 @@ def preflight(spec: dict[str, Any], *, require_project: bool = True) -> dict[str
         "project_exists": project.exists(),
         "source_midi_exists": source_midi.exists(),
         "cgclick": CGCLICK.exists(),
-        "cgdrag": CGDRAG.exists(),
         "manual_fallback": "studio/MANUAL_FALLBACK.md",
     }
     required_checks = [
@@ -159,7 +174,6 @@ def preflight(spec: dict[str, Any], *, require_project: bool = True) -> dict[str
         "accessibility_enabled",
         "source_midi_exists",
         "cgclick",
-        "cgdrag",
     ]
     if require_project:
         required_checks.append("project_exists")
@@ -203,7 +217,7 @@ def bootstrap_project(spec: dict[str, Any], *, dry_run: bool = False) -> dict[st
     steps = [
         f"Open {source_midi.relative_to(ROOT)} in GarageBand",
         f"Save the imported Tracks window as {project.name} in {ROOT}",
-        "Apply the canonical patches and faders through sync",
+        "Apply the canonical patches through sync without changing volume",
     ]
     if dry_run:
         return {"status": "DRY_RUN", "steps": steps, "manual_actions_required": False}
@@ -277,10 +291,11 @@ def quarantine_live_session(spec: dict[str, Any]) -> dict[str, Any]:
     window_name = project_window(project)
     wait_for_window(window_name, timeout=5)
     timestamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
-    quarantine = ROOT / "archive" / "live_sessions" / f"{project.stem}_before_retro_{timestamp}.band"
+    quarantine = ROOT / "archive" / "live_sessions" / f"{project.stem}_live_session_{timestamp}.band"
     save_as(window_name, quarantine)
     time.sleep(4)
     close_project()
+    wait_for_window_absent(window_name)
     reopened = open_project(project)
     return {
         "status": "PASS",
@@ -365,9 +380,6 @@ def verify(
             row_errors.append(f"name expected {expected['name']!r}, found {actual.name!r}")
         if expected["patch"] != actual.patch:
             row_errors.append(f"patch expected {expected['patch']!r}, found {actual.patch!r}")
-        target_fader = expected.get("fader")
-        if target_fader is not None and abs(int(target_fader) - actual.fader) > 1:
-            row_errors.append(f"fader expected {target_fader}, found {actual.fader}")
         errors.extend(f"Track {actual.index}: {error}" for error in row_errors)
         track_rows.append(
             {
@@ -450,19 +462,7 @@ def verify_saved_package(spec: dict[str, Any]) -> dict[str, Any]:
     if persisted_report.exists():
         persisted = json.loads(persisted_report.read_text(encoding="utf-8"))
         if persisted.get("project_fingerprint") != project_fingerprint(project):
-            errors.append("Project changed after the last post-reopen fader verification")
-        verified_tracks = {
-            int(track["index"]): track for track in persisted["verification"].get("tracks", [])
-        }
-        for expected in spec["garageband"]["tracks"]:
-            target = expected.get("fader")
-            if target is None:
-                continue
-            actual = verified_tracks.get(int(expected["index"]), {}).get("fader")
-            if actual is None or abs(int(actual) - int(target)) > 1:
-                errors.append(
-                    f"Last persisted fader verification differs on track {expected['index']}: {actual} != {target}"
-                )
+            errors.append("Project changed after the last post-reopen verification")
     else:
         errors.append("No post-reopen native verification report exists")
     return {
@@ -477,13 +477,6 @@ def verify_saved_package(spec: dict[str, Any]) -> dict[str, Any]:
 
 def click(x: float, y: float) -> None:
     run([str(CGCLICK), str(round(x)), str(round(y))], timeout=10)
-
-
-def drag(start_x: float, start_y: float, end_x: float, end_y: float) -> None:
-    run(
-        [str(CGDRAG), str(round(start_x)), str(round(start_y)), str(round(end_x)), str(round(end_y))],
-        timeout=10,
-    )
 
 
 def track_region_geometry(window_name: str, index: int) -> tuple[int, int, int, int]:
@@ -590,42 +583,19 @@ def apply_patch(window_name: str, track: dict[str, Any]) -> None:
         )
 
 
-def slider_geometry(window_name: str, index: int) -> tuple[int, int, int, int, int, int]:
-    output = osascript(
-        'tell application "System Events" to tell process "GarageBand"\n'
-        f'set w to window {apple_string(window_name)}\n'
-        'set h to group 1 of scroll area 1 of splitter group 2 of splitter group 1 of group 3 of w\n'
-        f'set s to slider 2 of UI element {index} of h\n'
-        'set p to position of s\n'
-        'set z to size of s\n'
-        'return {item 1 of p, item 2 of p, item 1 of z, item 2 of z, value of s, value of attribute "AXMaxValue" of s}\n'
-        'end tell'
-    )
-    return tuple(int(float(part.strip())) for part in output.split(","))  # type: ignore[return-value]
-
-
-def fader_x(position_x: int, width: int, maximum: int, value: int) -> int:
-    usable_width = max(1, width - 3)
-    visible_floor = maximum - usable_width
-    return position_x + min(usable_width, max(0, value - visible_floor))
-
-
-def set_fader(window_name: str, index: int, target: int) -> None:
-    for _ in range(3):
-        x, y, width, height, current, maximum = slider_geometry(window_name, index)
-        if abs(current - target) <= 1:
-            return
-        activate(window_name)
-        drag(
-            fader_x(x, width, maximum, current),
-            y + height // 2,
-            fader_x(x, width, maximum, target),
-            y + height // 2,
+def assert_volume_unchanged(
+    baseline: dict[int, int], current: list[TrackState], *, stage: str
+) -> None:
+    changed = [
+        f"track {state.index}: {baseline.get(state.index)} -> {state.fader}"
+        for state in current
+        if baseline.get(state.index) != state.fader
+    ]
+    if changed:
+        raise AutomationError(
+            f"Volume changed during {stage}; producer policy forbids track/master volume edits: "
+            + "; ".join(changed)
         )
-        time.sleep(1)
-    actual = slider_geometry(window_name, index)[4]
-    if abs(actual - target) > 1:
-        raise AutomationError(f"Track {index} fader expected {target}, found {actual}")
 
 
 def save_project() -> None:
@@ -697,6 +667,7 @@ def synchronize(spec: dict[str, Any], args: argparse.Namespace) -> dict[str, Any
         bootstrap_project(spec)
     window_name = open_project(project)
     current = {state.index: state for state in inspect_tracks(window_name, len(spec["garageband"]["tracks"]))}
+    locked_volumes = {index: state.fader for index, state in current.items()}
     changes: list[str] = []
     for track in spec["garageband"]["tracks"]:
         actual = current[int(track["index"])]
@@ -707,23 +678,33 @@ def synchronize(spec: dict[str, Any], args: argparse.Namespace) -> dict[str, Any
                 )
             apply_patch(window_name, track)
             changes.append(f"track {track['index']} patch -> {track['patch']}")
-        if track.get("fader") is not None:
-            before = slider_geometry(window_name, int(track["index"]))[4]
-            set_fader(window_name, int(track["index"]), int(track["fader"]))
-            if abs(before - int(track["fader"])) > 1:
-                changes.append(f"track {track['index']} fader -> {track['fader']}")
+    assert_volume_unchanged(
+        locked_volumes,
+        inspect_tracks(window_name, len(spec["garageband"]["tracks"])),
+        stage="patch application",
+    )
     save_project()
     close_project()
     window_name = open_project(project)
     verification = verify(spec, open_if_needed=False)
     if verification["status"] != "PASS":
         raise AutomationError(f"Post-reopen verification failed: {verification['errors']}")
+    reopened = [
+        TrackState(
+            int(row["index"]),
+            str(row["name"]),
+            str(row["patch"]),
+            int(row["fader"]),
+        )
+        for row in verification["tracks"]
+    ]
+    assert_volume_unchanged(locked_volumes, reopened, stage="save/reopen")
     write_verification_report(spec, verification)
 
     timestamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
     basename = f".studio_native_candidate_{timestamp}"
     exported = export_wave(window_name, basename)
-    candidate_dir = ROOT / "studio" / "candidates"
+    candidate_dir = ROOT / ".studio" / "candidates"
     candidate_dir.mkdir(parents=True, exist_ok=True)
     candidate_audio = candidate_dir / f"native-{timestamp}.wav"
     exported.replace(candidate_audio)
@@ -733,6 +714,8 @@ def synchronize(spec: dict[str, Any], args: argparse.Namespace) -> dict[str, Any
         [
             sys.executable,
             str(SCRIPT_DIR / "compare_garageband_render.py"),
+            "--spec",
+            str(args.spec),
             "--render-path",
             str(candidate_audio),
             "--output-path",

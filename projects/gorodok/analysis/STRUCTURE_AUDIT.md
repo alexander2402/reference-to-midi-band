@@ -4,10 +4,16 @@ Overall status: **PASS**. Passed: 70; failed: 0; warnings: 0.
 
 | Status | Check | Evidence |
 |---|---|---|
-| PASS | Studio rules | STUDIO.md exists |
-| PASS | Canonical project spec | studio/project.json exists |
-| PASS | Reusable knowledge | studio/knowledge.json exists |
+| PASS | Studio workflow | STUDIO.md exists at producer root |
+| PASS | Cumulative producer rules | PRODUCER_RULES.md exists at producer root |
+| PASS | Canonical project spec | projects/gorodok/project.json |
+| PASS | Reusable producer knowledge | studio/knowledge.json exists |
 | PASS | New-machine fallback | Manual fallback exists |
+| PASS | Producer project registry | projects=['gorodok'] |
+| PASS | Project isolation | No track-specific artifact directories at producer root |
+| PASS | Immutable volume policy | Master and track volume are read-only |
+| PASS | EQ-only balance policy | Balance method is equalizer |
+| PASS | No writable volume targets | No fader/volume/gain targets in project tracks |
 | PASS | Deliverable: native_project | Gorodok_Matched.band |
 | PASS | Deliverable: full_midi | midi/00_full_arrangement.mid |
 | PASS | Deliverable: part_midis | midi/01_accompaniment_transcribed.mid |
@@ -25,15 +31,13 @@ Overall status: **PASS**. Passed: 70; failed: 0; warnings: 0.
 | PASS | Deliverable: iteration_ledger | analysis/iteration_ledger.jsonl |
 | PASS | Deliverable: structure_audit | analysis/STRUCTURE_AUDIT.md |
 | PASS | Deliverable: comparison_report | analysis/COMPARISON.md |
-| PASS | Documentation | STUDIO.md |
-| PASS | Documentation | README.md |
 | PASS | Documentation | PROJECT.md |
 | PASS | Documentation | analysis/COMPARISON.md |
-| PASS | Documentation | studio/MANUAL_FALLBACK.md |
 | PASS | Section coverage | Sections cover bars 1–80 exactly once |
 | PASS | MIDI technical validation | analysis/midi_validation.json |
 | PASS | MIDI tempo matches spec | 77.733 BPM |
 | PASS | MIDI length matches spec | 80 bars |
+| PASS | No MIDI volume automation | No CC7/CC11 events |
 | PASS | direct_midi KPI: rms_envelope_correlation | actual=0.50935, minimum=0.48000 |
 | PASS | direct_midi KPI: onset_envelope_correlation | actual=0.70695, minimum=0.70000 |
 | PASS | direct_midi KPI: chroma_cosine_similarity | actual=0.94744, minimum=0.94000 |
@@ -48,11 +52,7 @@ Overall status: **PASS**. Passed: 70; failed: 0; warnings: 0.
 | PASS | Accepted artifact hash: direct_midi | renders/00_full_arrangement.wav |
 | PASS | Accepted artifact hash: native | renders/Gorodok_Matched_GarageBand_verified.wav |
 | PASS | Post-reopen native verification | analysis/native_verification.json |
-| PASS | Persisted fader evidence: track 2 | actual=173, expected=173 |
-| PASS | Persisted fader evidence: track 3 | actual=153, expected=153 |
-| PASS | Persisted fader evidence: track 4 | actual=173, expected=173 |
-| PASS | Persisted fader evidence: track 5 | actual=173, expected=173 |
-| PASS | Persisted fader evidence: track 6 | actual=163, expected=163 |
+| PASS | Read-only track-volume baseline | Track-volume values are observed for mutation detection, never used as write targets |
 | PASS | Iteration decision ledger | entries=1 |
 | PASS | Native tempo | 77.73300170898438 |
 | PASS | Native key | A minor |
@@ -75,4 +75,4 @@ Overall status: **PASS**. Passed: 70; failed: 0; warnings: 0.
 | PASS | Canonical artifact naming | No trial versions in active analysis/renders |
 | PASS | Root directory cleanliness | root audio=[] |
 
-This audit is generated from `studio/project.json`; it verifies both the STUDIO.md delivery contract and the promoted KPI thresholds.
+This audit is generated from the selected `projects/<track>/project.json`; it verifies the producer rules, the STUDIO.md delivery contract, and the promoted KPI thresholds.

@@ -62,7 +62,7 @@ The first native project existed but initially assigned the same animated pad to
 | Patch pass 2 | 0.776 | 0.641 | 0.578 | 0.845 | 0.764 | 499 Hz | Dynamics improved, but Deep Sub Bass at maximum level masked harmony |
 | Patch pass 3 | 0.686 | 0.650 | 0.573 | 0.830 | 0.765 | 542 Hz | Female choir and brighter bell; bass masking remained |
 | Mix pass 4 | 0.402 | 0.643 | 0.933 | 0.841 | 0.757 | 837 Hz | Fingerstyle Bass plus normalized faders restored harmonic clarity |
-| Post-reopen verified | 0.429 | 0.644 | 0.934 | 0.841 | 0.752 | 859 Hz | Persisted patches/faders; final export from freshly reopened project |
+| Post-reopen verified | 0.429 | 0.644 | 0.934 | 0.841 | 0.752 | 859 Hz | Persisted patches; final export from freshly reopened project |
 
 The verified native file is `renders/Gorodok_Matched_GarageBand_verified.wav`. Its strongest full-song evidence is harmonic alignment (`0.934`) and onset matching (`0.752` F1). It remains darker than the reference master: median centroid `859 Hz` versus `1,591 Hz`.
 
@@ -77,7 +77,7 @@ The delivered `Gorodok_Matched.band` passed all required checks:
 - saves without corruption;
 - closes and reopens;
 - preserves final patches: Classic Electric Piano, Fingerstyle Bass, SoCal, Female Chamber Choir, and Glass Bells;
-- preserves final musical-track fader values: `173`, `153`, `173`, `173`, `163`;
+- records the then-current track-volume values as read-only verification evidence; current producer policy forbids changing them;
 - exports a complete WAV after reopening;
 - produces the documented verified comparison result.
 

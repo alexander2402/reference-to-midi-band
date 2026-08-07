@@ -8,13 +8,15 @@ import json
 from pathlib import Path
 
 from compare_render import ANALYSIS, REFERENCE_GRID_OFFSET, RENDERS, compare_pair, crop_reference, load, section_metrics
+from studio_common import DEFAULT_SPEC, load_spec
 
 
 def main() -> None:
     parser = argparse.ArgumentParser()
+    parser.add_argument("--spec", default=str(DEFAULT_SPEC))
     parser.add_argument(
         "--render",
-        default="Gorodok_Matched_GarageBand_verified.wav",
+        default=None,
         help="WAV filename inside renders/",
     )
     parser.add_argument(
@@ -31,8 +33,10 @@ def main() -> None:
         help="Explicit report path; overrides --output",
     )
     args = parser.parse_args()
+    spec = load_spec(Path(args.spec))
 
-    render_path = Path(args.render_path) if args.render_path else RENDERS / args.render
+    default_render = Path(spec["deliverables"]["native_render"]).name
+    render_path = Path(args.render_path) if args.render_path else RENDERS / (args.render or default_render)
     output_path = Path(args.output_path) if args.output_path else ANALYSIS / args.output
     rendered = load(render_path)
     reference = crop_reference(load(ANALYSIS / "reference.wav"), len(rendered))
@@ -41,7 +45,7 @@ def main() -> None:
     report = {
         "reference_alignment_seconds_removed": REFERENCE_GRID_OFFSET,
         "renderer": "GarageBand 10.4.3 native project export, PCM WAV 44.1 kHz / 16-bit / stereo",
-        "project": "Gorodok_Matched.band",
+        "project": spec["deliverables"]["native_project"],
         "render": str(render_path),
         "metrics": metrics,
     }

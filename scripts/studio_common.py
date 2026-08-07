@@ -11,9 +11,12 @@ from pathlib import Path
 from typing import Any
 
 
-ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_SPEC = ROOT / "studio" / "project.json"
-KNOWLEDGE = ROOT / "studio" / "knowledge.json"
+REPO_ROOT = Path(__file__).resolve().parents[1]
+PROJECTS_ROOT = REPO_ROOT / "projects"
+DEFAULT_PROJECT = os.environ.get("STUDIO_PROJECT", "gorodok")
+ROOT = PROJECTS_ROOT / DEFAULT_PROJECT
+DEFAULT_SPEC = ROOT / "project.json"
+KNOWLEDGE = REPO_ROOT / "studio" / "knowledge.json"
 ACCEPTED_STATE = ROOT / "analysis" / "accepted_state.json"
 ITERATION_LEDGER = ROOT / "analysis" / "iteration_ledger.jsonl"
 

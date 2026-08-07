@@ -5,12 +5,13 @@ import sys
 import unittest
 from pathlib import Path
 
+import mido
 
-ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "scripts"))
 
-from garageband_native import fader_x  # noqa: E402
-from studio_common import load_spec, promotion_decision, report_metrics  # noqa: E402
+REPO_ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(REPO_ROOT / "scripts"))
+
+from studio_common import ROOT, load_spec, promotion_decision, report_metrics  # noqa: E402
 
 
 class StudioSystemTests(unittest.TestCase):
@@ -95,10 +96,47 @@ class StudioSystemTests(unittest.TestCase):
         self.assertFalse(decision["accepted"])
         self.assertIn("rms_envelope_correlation", decision["protected_regressions"])
 
-    def test_fader_geometry_matches_verified_garageband_mapping(self) -> None:
-        self.assertEqual(fader_x(375, 128, 233, 233), 500)
-        self.assertEqual(fader_x(375, 128, 233, 173), 440)
-        self.assertEqual(fader_x(375, 128, 233, 153), 420)
+    def test_every_track_lives_inside_projects(self) -> None:
+        projects = [
+            path
+            for path in (REPO_ROOT / "projects").iterdir()
+            if path.is_dir() and not path.name.startswith("_")
+        ]
+        self.assertTrue(projects)
+        self.assertTrue(all((path / "project.json").is_file() for path in projects))
+        for leaked in ("analysis", "archive", "midi", "renders", "sources"):
+            self.assertFalse((REPO_ROOT / leaked).exists(), leaked)
+
+    def test_volume_is_immutable_and_balance_uses_eq(self) -> None:
+        policy = self.spec["mix_policy"]
+        self.assertEqual(policy["master_volume"], "do_not_touch")
+        self.assertEqual(policy["track_volume"], "do_not_touch")
+        self.assertEqual(policy["balance_method"], "equalizer")
+        for track in self.spec["garageband"]["tracks"]:
+            self.assertTrue({"fader", "volume", "gain"}.isdisjoint(track))
+
+        automation = (REPO_ROOT / "scripts" / "garageband_native.py").read_text(encoding="utf-8")
+        self.assertNotIn("def set_fader", automation)
+        self.assertNotIn("CGDRAG", automation)
+        self.assertIn("assert_volume_unchanged", automation)
+
+        midi_paths = [
+            ROOT / self.spec["deliverables"]["full_midi"],
+            *(ROOT / path for path in self.spec["deliverables"]["part_midis"]),
+        ]
+        for path in midi_paths:
+            writable = [
+                message
+                for track in mido.MidiFile(path).tracks
+                for message in track
+                if message.type == "control_change" and message.control in {7, 11}
+            ]
+            self.assertFalse(writable, path.name)
+
+    def test_cumulative_rules_document_exists(self) -> None:
+        rules = (REPO_ROOT / "PRODUCER_RULES.md").read_text(encoding="utf-8")
+        self.assertIn("Every track is a project", rules)
+        self.assertIn("Never change volume", rules)
 
 
 if __name__ == "__main__":

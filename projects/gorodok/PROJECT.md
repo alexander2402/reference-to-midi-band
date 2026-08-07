@@ -85,9 +85,9 @@ Verified project metadata:
 - six imported tracks including the conductor track
 - all expected MIDI regions and track names
 
-Verified saved patches:
+Verified saved patches and read-only volume observations:
 
-| Track | GarageBand patch | Saved fader value |
+| Track | GarageBand patch | Observed track-volume value |
 |---|---|---:|
 | Accompaniment | Classic Electric Piano | 173 |
 | Bass | Fingerstyle Bass | 153 |
@@ -95,20 +95,17 @@ Verified saved patches:
 | Vocal guide | Female Chamber Choir | 173 |
 | High synth | Glass Bells | 163 |
 
-The final state was saved, played, closed, reopened, and re-inspected. All patch names and fader values persisted. The verified WAV was exported from that reopened state. The degraded first native attempt is retained only as `archive/Gorodok_Reconstruction_first_attempt.band` and is not a deliverable.
+The final state was saved, played, closed, reopened, and re-inspected. All patch names persisted. The volume values above are historical read-only observations used only to detect mutation; producer rule PR-002 now prohibits writing track or master volume. The verified WAV was exported from that reopened state. The degraded first native attempt is retained only as `archive/Gorodok_Reconstruction_first_attempt.band` and is not a deliverable.
 
 ## Reproduction
 
 ```sh
-.analysis-venv/bin/python scripts/generate_reconstruction.py
-.analysis-venv/bin/python scripts/validate_midis.py
-scripts/render_midi midi/00_full_arrangement.mid renders/00_full_arrangement.wav 90,33,0,52,98
-.analysis-venv/bin/python scripts/compare_garageband_render.py --render Gorodok_Matched_GarageBand_verified.wav --output garageband_comparison.json
-.analysis-venv/bin/python scripts/garageband_native.py sync --hypothesis "<measurable hypothesis>" --primary-change "<one variable group>" --promote
-.analysis-venv/bin/python scripts/audit_project.py
+make validate PROJECT=gorodok
+make native-sync PROJECT=gorodok HYPOTHESIS="<measurable hypothesis>" PRIMARY_CHANGE="<one variable group>" PROMOTE=--promote
+make audit PROJECT=gorodok
 ```
 
-The native `sync` command applies `studio/project.json`, saves, closes, reopens, verifies patches/faders/metadata, exports a temporary candidate, compares it, records the result, and promotes it only when the KPI gate passes. The current control state is in `analysis/accepted_state.json`, `analysis/native_verification.json`, and `analysis/iteration_ledger.jsonl`.
+The native `sync` command applies `project.json`, protects existing volume values from mutation, saves, closes, reopens, verifies patches and metadata, exports a temporary candidate, compares it, records the result, and promotes it only when the KPI gate passes. The current control state is in `analysis/accepted_state.json`, `analysis/native_verification.json`, and `analysis/iteration_ledger.jsonl`.
 
 ## Remaining physical limitation
 

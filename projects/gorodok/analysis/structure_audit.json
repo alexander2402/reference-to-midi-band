@@ -9,19 +9,25 @@
   },
   "checks": [
     {
-      "name": "Studio rules",
+      "name": "Studio workflow",
       "status": "PASS",
       "required": true,
-      "evidence": "STUDIO.md exists"
+      "evidence": "STUDIO.md exists at producer root"
+    },
+    {
+      "name": "Cumulative producer rules",
+      "status": "PASS",
+      "required": true,
+      "evidence": "PRODUCER_RULES.md exists at producer root"
     },
     {
       "name": "Canonical project spec",
       "status": "PASS",
       "required": true,
-      "evidence": "studio/project.json exists"
+      "evidence": "projects/gorodok/project.json"
     },
     {
-      "name": "Reusable knowledge",
+      "name": "Reusable producer knowledge",
       "status": "PASS",
       "required": true,
       "evidence": "studio/knowledge.json exists"
@@ -31,6 +37,36 @@
       "status": "PASS",
       "required": true,
       "evidence": "Manual fallback exists"
+    },
+    {
+      "name": "Producer project registry",
+      "status": "PASS",
+      "required": true,
+      "evidence": "projects=['gorodok']"
+    },
+    {
+      "name": "Project isolation",
+      "status": "PASS",
+      "required": true,
+      "evidence": "No track-specific artifact directories at producer root"
+    },
+    {
+      "name": "Immutable volume policy",
+      "status": "PASS",
+      "required": true,
+      "evidence": "Master and track volume are read-only"
+    },
+    {
+      "name": "EQ-only balance policy",
+      "status": "PASS",
+      "required": true,
+      "evidence": "Balance method is equalizer"
+    },
+    {
+      "name": "No writable volume targets",
+      "status": "PASS",
+      "required": true,
+      "evidence": "No fader/volume/gain targets in project tracks"
     },
     {
       "name": "Deliverable: native_project",
@@ -138,18 +174,6 @@
       "name": "Documentation",
       "status": "PASS",
       "required": true,
-      "evidence": "STUDIO.md"
-    },
-    {
-      "name": "Documentation",
-      "status": "PASS",
-      "required": true,
-      "evidence": "README.md"
-    },
-    {
-      "name": "Documentation",
-      "status": "PASS",
-      "required": true,
       "evidence": "PROJECT.md"
     },
     {
@@ -157,12 +181,6 @@
       "status": "PASS",
       "required": true,
       "evidence": "analysis/COMPARISON.md"
-    },
-    {
-      "name": "Documentation",
-      "status": "PASS",
-      "required": true,
-      "evidence": "studio/MANUAL_FALLBACK.md"
     },
     {
       "name": "Section coverage",
@@ -187,6 +205,12 @@
       "status": "PASS",
       "required": true,
       "evidence": "80 bars"
+    },
+    {
+      "name": "No MIDI volume automation",
+      "status": "PASS",
+      "required": true,
+      "evidence": "No CC7/CC11 events"
     },
     {
       "name": "direct_midi KPI: rms_envelope_correlation",
@@ -273,34 +297,10 @@
       "evidence": "analysis/native_verification.json"
     },
     {
-      "name": "Persisted fader evidence: track 2",
+      "name": "Read-only track-volume baseline",
       "status": "PASS",
       "required": true,
-      "evidence": "actual=173, expected=173"
-    },
-    {
-      "name": "Persisted fader evidence: track 3",
-      "status": "PASS",
-      "required": true,
-      "evidence": "actual=153, expected=153"
-    },
-    {
-      "name": "Persisted fader evidence: track 4",
-      "status": "PASS",
-      "required": true,
-      "evidence": "actual=173, expected=173"
-    },
-    {
-      "name": "Persisted fader evidence: track 5",
-      "status": "PASS",
-      "required": true,
-      "evidence": "actual=173, expected=173"
-    },
-    {
-      "name": "Persisted fader evidence: track 6",
-      "status": "PASS",
-      "required": true,
-      "evidence": "actual=163, expected=163"
+      "evidence": "Track-volume values are observed for mutation detection, never used as write targets"
     },
     {
       "name": "Iteration decision ledger",

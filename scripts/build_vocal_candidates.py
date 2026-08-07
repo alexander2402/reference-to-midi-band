@@ -4,7 +4,6 @@
 from __future__ import annotations
 
 import csv
-from pathlib import Path
 
 from generate_reconstruction import (
     ANALYSIS_DIR,
@@ -19,7 +18,6 @@ from generate_reconstruction import (
 )
 
 
-ROOT = Path(__file__).resolve().parents[1]
 OUT = ANALYSIS_DIR / "vocal_candidates"
 VOCAL_RANGES = [(31.0, 79.0), (90.0, 138.0), (143.0, 191.0), (218.0, 244.0), (248.0, 297.0)]
 
@@ -162,7 +160,7 @@ def main() -> None:
         "fused_grid16": grid_candidate(4, guide_weight=24, fill_from_guide=True),
     }
     for name, events in candidates.items():
-        track = note_track(f"Vocal Candidate: {name}", 68, events, volume=108)
+        track = note_track(f"Vocal Candidate: {name}", 68, events)
         path = OUT / f"04_{name}.mid"
         save_midi(path, [conductor_track(chords), track])
         print(name, len(events), path)

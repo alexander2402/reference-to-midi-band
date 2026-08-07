@@ -9,7 +9,9 @@ import re
 from pathlib import Path
 from typing import Any
 
-from studio_common import DEFAULT_SPEC, ROOT, atomic_write_json, load_json, load_spec, report_metrics, resolve, sha256
+import mido
+
+from studio_common import DEFAULT_SPEC, REPO_ROOT, ROOT, atomic_write_json, load_json, load_spec, report_metrics, resolve, sha256
 
 
 OUTPUT_JSON = ROOT / "analysis" / "structure_audit.json"
@@ -41,10 +43,64 @@ def metric_checks(spec: dict[str, Any], kind: str, report_path: Path) -> list[di
 
 def audit(spec: dict[str, Any]) -> dict[str, Any]:
     checks: list[dict[str, Any]] = []
-    checks.append(check((ROOT / "STUDIO.md").exists(), "Studio rules", "STUDIO.md exists"))
-    checks.append(check(DEFAULT_SPEC.exists(), "Canonical project spec", "studio/project.json exists"))
-    checks.append(check((ROOT / "studio" / "knowledge.json").exists(), "Reusable knowledge", "studio/knowledge.json exists"))
-    checks.append(check((ROOT / "studio" / "MANUAL_FALLBACK.md").exists(), "New-machine fallback", "Manual fallback exists"))
+    checks.append(check((REPO_ROOT / "STUDIO.md").exists(), "Studio workflow", "STUDIO.md exists at producer root"))
+    checks.append(check((REPO_ROOT / "PRODUCER_RULES.md").exists(), "Cumulative producer rules", "PRODUCER_RULES.md exists at producer root"))
+    checks.append(check(DEFAULT_SPEC.exists(), "Canonical project spec", str(DEFAULT_SPEC.relative_to(REPO_ROOT))))
+    checks.append(check((REPO_ROOT / "studio" / "knowledge.json").exists(), "Reusable producer knowledge", "studio/knowledge.json exists"))
+    checks.append(check((REPO_ROOT / "studio" / "MANUAL_FALLBACK.md").exists(), "New-machine fallback", "Manual fallback exists"))
+    projects_root = REPO_ROOT / "projects"
+    project_directories = [
+        path for path in projects_root.iterdir() if path.is_dir() and not path.name.startswith("_")
+    ] if projects_root.exists() else []
+    checks.append(
+        check(
+            bool(project_directories) and all((path / "project.json").exists() for path in project_directories),
+            "Producer project registry",
+            f"projects={sorted(path.name for path in project_directories)}",
+        )
+    )
+    leaked_project_directories = [
+        name for name in ("analysis", "archive", "midi", "renders", "sources")
+        if (REPO_ROOT / name).exists()
+    ]
+    checks.append(
+        check(
+            not leaked_project_directories,
+            "Project isolation",
+            "No track-specific artifact directories at producer root"
+            if not leaked_project_directories else f"leaked={leaked_project_directories}",
+        )
+    )
+
+    mix_policy = spec.get("mix_policy", {})
+    checks.append(
+        check(
+            mix_policy.get("master_volume") == "do_not_touch"
+            and mix_policy.get("track_volume") == "do_not_touch",
+            "Immutable volume policy",
+            "Master and track volume are read-only",
+        )
+    )
+    checks.append(
+        check(
+            mix_policy.get("balance_method") == "equalizer",
+            "EQ-only balance policy",
+            "Balance method is equalizer",
+        )
+    )
+    forbidden_mix_keys = [
+        f"track {track.get('index')}: {key}"
+        for track in spec.get("garageband", {}).get("tracks", [])
+        for key in ("fader", "volume", "gain")
+        if key in track
+    ]
+    checks.append(
+        check(
+            not forbidden_mix_keys,
+            "No writable volume targets",
+            "No fader/volume/gain targets in project tracks" if not forbidden_mix_keys else ", ".join(forbidden_mix_keys),
+        )
+    )
 
     for name, relative in spec["deliverables"].items():
         paths = relative if isinstance(relative, list) else [relative]
@@ -61,7 +117,7 @@ def audit(spec: dict[str, Any]) -> dict[str, Any]:
     covered_bars = [bar for section in sections for bar in range(section["start_bar"], section["end_bar"] + 1)]
     expected_bars = list(range(1, int(spec["music"]["bars"]) + 1))
     checks.append(
-        check(covered_bars == expected_bars, "Section coverage", "Sections cover bars 1–80 exactly once")
+        check(covered_bars == expected_bars, "Section coverage", f"Sections cover bars 1–{spec['music']['bars']} exactly once")
     )
 
     validation_path = resolve(spec["deliverables"]["midi_validation"])
@@ -82,6 +138,26 @@ def audit(spec: dict[str, Any]) -> dict[str, Any]:
                 f"{validation['expected_bars']} bars",
             )
         )
+
+    midi_paths = [
+        resolve(spec["deliverables"]["full_midi"]),
+        *(resolve(path) for path in spec["deliverables"]["part_midis"]),
+    ]
+    writable_volume_events = [
+        f"{path.name}:CC{message.control}"
+        for path in midi_paths
+        if path.exists()
+        for track in mido.MidiFile(path).tracks
+        for message in track
+        if message.type == "control_change" and message.control in {7, 11}
+    ]
+    checks.append(
+        check(
+            not writable_volume_events,
+            "No MIDI volume automation",
+            "No CC7/CC11 events" if not writable_volume_events else ", ".join(writable_volume_events),
+        )
+    )
 
     checks.extend(metric_checks(spec, "direct_midi", resolve(spec["deliverables"]["midi_comparison"])))
     checks.extend(metric_checks(spec, "native", resolve(spec["deliverables"]["native_comparison"])))
@@ -108,22 +184,18 @@ def audit(spec: dict[str, Any]) -> dict[str, Any]:
             str(native_verification_path.relative_to(ROOT)),
         )
     )
-    verified_tracks = {
-        int(track["index"]): track
+    observed_volumes = [
+        track.get("fader")
         for track in native_verification.get("verification", {}).get("tracks", [])
-    }
-    for expected in spec["garageband"]["tracks"]:
-        target = expected.get("fader")
-        if target is None:
-            continue
-        actual = verified_tracks.get(int(expected["index"]), {}).get("fader")
-        checks.append(
-            check(
-                actual is not None and abs(int(actual) - int(target)) <= 1,
-                f"Persisted fader evidence: track {expected['index']}",
-                f"actual={actual}, expected={target}",
-            )
+    ]
+    checks.append(
+        check(
+            len(observed_volumes) == len(spec["garageband"]["tracks"])
+            and all(value is not None for value in observed_volumes),
+            "Read-only track-volume baseline",
+            "Track-volume values are observed for mutation detection, never used as write targets",
         )
+    )
 
     ledger_path = resolve(spec["deliverables"]["iteration_ledger"])
     ledger_entries: list[dict[str, Any]] = []
@@ -168,8 +240,14 @@ def audit(spec: dict[str, Any]) -> dict[str, Any]:
     else:
         checks.append(check(False, "Native metadata", str(metadata_path.relative_to(ROOT))))
 
-    expected_directories = {"analysis", "archive", "fixtures", "midi", "renders", "scripts", "sources", "studio", "tests"}
-    present_directories = {path.name for path in ROOT.iterdir() if path.is_dir() and not path.name.startswith(".") and not path.name.endswith(".band")}
+    expected_directories = {"analysis", "archive", "midi", "renders", "sources", ".studio"}
+    present_directories = {
+        path.name
+        for path in ROOT.iterdir()
+        if path.is_dir()
+        and (not path.name.startswith(".") or path.name == ".studio")
+        and not path.name.endswith(".band")
+    }
     missing_directories = expected_directories - present_directories
     checks.append(
         check(not missing_directories, "Workspace organization", f"missing={sorted(missing_directories)}", required=False)
@@ -225,7 +303,7 @@ def markdown(report: dict[str, Any]) -> str:
     rows.extend(
         [
             "",
-            "This audit is generated from `studio/project.json`; it verifies both the STUDIO.md delivery contract and the promoted KPI thresholds.",
+            "This audit is generated from the selected `projects/<track>/project.json`; it verifies the producer rules, the STUDIO.md delivery contract, and the promoted KPI thresholds.",
             "",
         ]
     )

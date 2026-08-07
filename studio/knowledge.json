@@ -26,12 +26,12 @@
       "confidence": 1.0
     },
     {
-      "id": "inspect-imported-daw-faders",
+      "id": "treat-volume-as-immutable",
       "scope": "garageband",
-      "trigger": "A Standard MIDI File is imported into GarageBand.",
-      "action": "Inspect every imported fader before the first native export; do not assume neutral gain.",
-      "evidence": "Imported musical tracks appeared at fader value 233 and a sub-bass patch masked the harmony.",
-      "confidence": 0.99
+      "trigger": "A native mix has a balance or masking problem.",
+      "action": "Never write master or track volume; use EQ, arrangement, register, velocity, articulation, density, or patch choice. Observe track-volume values only to detect mutation.",
+      "evidence": "Producer rule PR-002 makes volume immutable so comparison gains come from reproducible musical and spectral decisions.",
+      "confidence": 1.0
     },
     {
       "id": "patch-name-is-not-audio-proof",
@@ -44,9 +44,9 @@
     {
       "id": "save-reopen-export",
       "scope": "garageband",
-      "trigger": "Native patches or faders have changed.",
-      "action": "Save, close, reopen, verify patches and faders, then export from the reopened state.",
-      "evidence": "Three fader edits sounded correct but reverted on reopen until real slider drags were used.",
+      "trigger": "Native patches or EQ settings have changed.",
+      "action": "Save, close, reopen, verify persisted settings and unchanged volume values, then export from the reopened state.",
+      "evidence": "A live GarageBand session diverged from the saved canonical project and was caught only by post-reopen verification.",
       "confidence": 1.0
     },
     {
@@ -54,8 +54,16 @@
       "scope": "iteration",
       "trigger": "A comparison result is below target.",
       "action": "Write one primary hypothesis, change one primary variable group, and promote only if weighted KPI improves without a protected regression.",
-      "evidence": "Unfocused patch passes created extra versions; the bass/fader hypothesis produced the decisive 0.573 to 0.933 chroma recovery.",
+      "evidence": "Unfocused patch passes created extra versions; a targeted bass and patch hypothesis produced the decisive chroma recovery.",
       "confidence": 0.97
+    },
+    {
+      "id": "isolate-every-track-project",
+      "scope": "producer_structure",
+      "trigger": "A new song or track enters the producer.",
+      "action": "Create projects/<track>/ and keep all of its source, MIDI, native, render, analysis, candidate, and archive artifacts inside it.",
+      "evidence": "The first track occupied the repository root and made reusable producer code indistinguishable from song-specific state.",
+      "confidence": 1.0
     }
   ]
 }
